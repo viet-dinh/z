@@ -24,12 +24,11 @@ This guide provides step-by-step instructions to set up the project on your loca
 4. Create DB docker external volume: `docker volume create z-db-volume`
 5. Run the following command to start the Docker containers: `docker-compose up -d`
 6. Once the containers are up and running, execute the following command to install vendor: `docker exec -it z-app bash -c "composer install"`
-7. Copy env file: `docker exec -it z-app bash -c "cp .env.dev .env"`
-8. Generate app key: `docker exec -it app bash -c "php artisan key:generate"`
-9. Migrate the database: `docker exec -it app bash -c "php artisan migrate""`
-10. Generate DB seed: `docker exec -it app bash -c "php artisan db:seed"`
-11. Install node_modules: `npm install`
-12. Run Vite: `npm run dev`
-13. Finally, open a web browser and navigate to http://localhost:8088 to access the application.
+7. Copy env file: `docker exec -it z-app bash -c "cp .env.example .env"`
+8. Generate app key: `docker exec -it z-app bash -c "php artisan key:generate"`
+9. Migrate the database: `docker exec -it z-app bash -c "php artisan migrate"`
+10. Install node_modules: `npm install`
+11. Run Vite: `npm run dev`
+12. Finally, open a web browser and navigate to http://localhost:8088 to access the application.
 
 Congratulations! You have successfully set up the project on your local machine.
