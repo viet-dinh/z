@@ -12,14 +12,13 @@ class ChatController extends Controller
         return view('chat');
     }
 
-    public function send(Request $request)
+    public function messageAll(Request $request)
     {
         $message = $request->input('message');
 
         // Save the message to the database if desired
-
         event(new MessageSent($message));
 
-        return response()->json(['message' => 'Message sent']);
+        return true;
     }
 }

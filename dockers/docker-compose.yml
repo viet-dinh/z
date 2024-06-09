@@ -19,12 +19,16 @@ services:
         image: nginx:latest
         container_name: z-nginx
         ports:
-            - "8088:80"
+            - "80:80"
+            - "8080:8080"
         volumes:
             - ./nginx:/etc/nginx/conf.d
             - ../:/var/www/html
         networks:
-            - app_network
+            app_network:
+                aliases:
+                    - z.app.local
+                    - websocket.app.local
         depends_on:
             - app
 

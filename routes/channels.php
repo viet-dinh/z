@@ -18,6 +18,10 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('app', function (User $user) {
+Broadcast::channel('chats.all', function (User $user) {
     return ['id' => $user->id, 'name' => $user->name, 'email' => $user->email];
 });
+
+// Broadcast::channel('chats.{roomId}', function (User $user, string $roomId) {
+//     return ['id' => $user->id, 'name' => $user->name, 'email' => $user->email];
+// });

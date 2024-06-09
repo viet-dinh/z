@@ -1,6 +1,8 @@
 <?php
 
+use App\Events\MessageSent;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,8 +30,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/chat', 'ChatController@index');
-Route::post('/send', 'ChatController@send');
+Route::middleware(['auth'])->post('/chat/message-all', function (Request $request) {
+    event(new MessageSent($request->get('message')));
+
+    return true;
+});
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/passport.php';
