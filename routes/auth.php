@@ -43,13 +43,16 @@ Route::middleware('guest')->group(function () {
 
         Route::get('/callback', function () {
             $googleUser = Socialite::driver('google')->user();
-
-            $user = User::updateOrCreate([
-                'google_id' => $googleUser->id,
-            ], [
-                'name' => $googleUser->name,
-                'email' => $googleUser->email,
-            ]);
+            $user = User::where('email', $googleUser->email)->first();
+        
+            if (!$user) {
+                $user = User::updateOrCreate([
+                    'google_id' => $googleUser->id,
+                ], [
+                    'name' => $googleUser->name,
+                    'email' => $googleUser->email,
+                ]);
+            }
 
             Auth::login($user);
 
