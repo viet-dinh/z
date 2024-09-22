@@ -1,0 +1,95 @@
+.hero {
+    font-family: "Island Moments", cursive;
+    background-image: url("/images/hero.png");
+    /* Replace with your image */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+    min-height: 400px;
+}
+
+.hero h1 {
+    font-size: 128px;
+    font-weight: bold;
+}
+
+.genre-card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.featured-story {
+    background-color: #f8f9fa;
+    padding: 50px;
+}
+
+.popular-stories .story {
+    margin-bottom: 30px;
+}
+
+footer {
+    background-color: #343a40;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
+    /* Bold for headings */
+}
+
+p,
+a,
+button {
+    font-weight: 400;
+    /* Normal weight for body text */
+}
+
+.hero h1 {
+    font-weight: 600;
+    /* Slightly bold for the hero heading */
+}
+
+.carousel-indicators {
+    bottom: -40px; /* Adjust as needed */
+}
+
+#new-stories-carousel {
+    max-width: 900px; /* Set your desired max width */
+    margin: 0 auto; /* Center the carousel */
+}
+
+#new-stories-carousel .carousel-indicators div {
+    width: 8px; /* Default size */
+    height: 8px; /* Default size */
+    border-radius: 50%; /* Make it a circle */
+    border-top: none;
+    border-bottom: none;
+    background: #dcdfe4; /* Default background color */
+    display: inline-block; /* Display as inline-block */
+    margin: 0 2px; /* Space between indicators */
+}
+
+#new-stories-carousel .carousel-indicators div.active {
+    width: 27px; /* Active size */
+    height: 8px; /* Maintain height for active state */
+    opacity: 1; /* Fully visible */
+    border-radius: 4px; /* Make corners fully rounded for pill shape */
+    background-color: #3b82f6; /* Adjust color as needed */
+}
+
+.carousel-item {
+    width: 900px;
+}
