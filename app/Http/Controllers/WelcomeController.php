@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Story;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class WelcomeController extends Controller
             ->orderBy('updated_at', 'desc')
             ->limit(12)
             ->get();
-
-        return view('welcome', compact('stories'));
+        $categories = Category::all();
+        return view('welcome', compact('stories'), compact('categories'));
     }
 }

@@ -62,16 +62,12 @@ button {
     /* Slightly bold for the hero heading */
 }
 
-.carousel-indicators {
-    bottom: -40px; /* Adjust as needed */
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
 }
 
-#new-stories-carousel {
-    max-width: 900px; /* Set your desired max width */
-    margin: 0 auto; /* Center the carousel */
-}
-
-#new-stories-carousel .carousel-indicators div {
+.swiper-pagination .swiper-pagination-bullet {
     width: 8px; /* Default size */
     height: 8px; /* Default size */
     border-radius: 50%; /* Make it a circle */
@@ -79,10 +75,9 @@ button {
     border-bottom: none;
     background: #dcdfe4; /* Default background color */
     display: inline-block; /* Display as inline-block */
-    margin: 0 2px; /* Space between indicators */
 }
 
-#new-stories-carousel .carousel-indicators div.active {
+.new-stories .swiper-pagination .swiper-pagination-bullet-active {
     width: 27px; /* Active size */
     height: 8px; /* Maintain height for active state */
     opacity: 1; /* Fully visible */
@@ -90,6 +85,72 @@ button {
     background-color: #3b82f6; /* Adjust color as needed */
 }
 
-.carousel-item {
-    width: 900px;
+.new-stories {
+    margin-top: 40px;
+    width: 90%;
+    padding-bottom: 50px;
+}
+
+.story-card {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    aspect-ratio: 2 / 3;
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.story-card-bg {
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.story-card-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding: 0 16px 16px 16px;
+}
+
+.banner {
+    margin-top: 16px;
+    background-image: url("/images/banner.png");
+    /* Replace with your image */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+    min-height: 180px;
+}
+
+.story-title {
+    font-size: 1rem; /* Base font size for mobile (e.g., 20px) */
+    font-weight: bold;
+}
+
+.story-description {
+    font-size: 0.8rem; /* Base font size for mobile (e.g., 16px) */
+}
+.navbar-nav {
+    margin-left: 20px;
+    gap: 20px;
+}
+.hover-dropdown .dropdown-menu {
+    display: none;
+    position: absolute; /* Adjust as necessary */
+}
+
+.hover-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.hover-dropdown .dropdown-toggle::after {
+    content: none; /* Remove the arrow/icon on mobile */
 }
