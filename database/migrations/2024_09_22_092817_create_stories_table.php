@@ -13,8 +13,10 @@ return new class extends Migration {
         Schema::create('stories', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug')->unique();
             $table->string('thumbnail');
             $table->string('author_name');
+            $table->string('translator')->nullable();
             $table->string('status');
             $table->text('description');
             $table->timestamps();

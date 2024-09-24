@@ -5,10 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Story;
+use App\Services\SlugService;
 use Illuminate\Http\Request;
 
 class StoryController extends Controller
 {
+    public function __construct(private SlugService $slugService)
+    {
+    }
     public function index()
     {
         $stories = Story::with('categories')->get();
@@ -32,11 +36,13 @@ class StoryController extends Controller
             'categories' => 'array',
         ]);
 
+        $slug = $this->slugService->createSlug($request->title, new Story);
+
         $image = $request->file('thumbnail');
         $imageName = time() . '.' . $image->getClientOriginalExtension();
         $image->move(public_path('thumbnails'), $imageName);
 
-        $story = Story::create([...$request->only('title', 'author_name', 'status', 'description'), 'thumbnail' => $imageName]);
+        $story = Story::create([...$request->only('title', 'author_name', 'status', 'description'), 'thumbnail' => $imageName, 'slug' => $slug]);
         $story->categories()->attach($request->categories);
 
         return redirect()->route('stories.index')->with('success', 'Story created successfully.');
@@ -60,6 +66,7 @@ class StoryController extends Controller
         ]);
 
         $updateFiedls = $request->only('title', 'author_name', 'status', 'description');
+        $updateFiedls['slug'] = $this->slugService->createSlug($request->title, new Story);
 
         if ($request->hasFile('thumbnail')) {
             $oldThumbnailPath = public_path('thumbnails/' . $story->thumbnail);

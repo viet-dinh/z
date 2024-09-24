@@ -10,7 +10,7 @@ class Story extends Model
 {
     use CreatedUpdatedBy;
 
-    protected $fillable = ['title', 'thumbnail', 'author_name', 'status', 'description'];
+    protected $fillable = ['title', 'slug', 'thumbnail', 'author_name', 'status', 'description'];
     const STATUS_COMPLETE = 'complete';
     const STATUS_INCOMPLETE = 'incomplete';
 

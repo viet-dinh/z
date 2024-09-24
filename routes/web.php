@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\StoryController;
+use App\Http\Controllers\SlugController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,13 +40,14 @@ Route::middleware(['auth'])->post('/chat/message-all', function (Request $reques
     return true;
 });
 
-
 Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::resource('categories', CategoryController::class);
     Route::resource('stories', StoryController::class);
     Route::resource('chapters', ChapterController::class);
 });
+
+Route::get('/{slug}', [SlugController::class, 'index'])->name('slug');
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/passport.php';
