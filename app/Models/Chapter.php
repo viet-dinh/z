@@ -10,7 +10,7 @@ class Chapter extends Model
 {
     use CreatedUpdatedBy;
 
-    protected $fillable = ['story_id', 'title', 'content'];
+    protected $fillable = ['story_id', 'order', 'title', 'content'];
 
     public function story()
     {

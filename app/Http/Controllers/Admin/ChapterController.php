@@ -25,11 +25,12 @@ class ChapterController extends Controller
     {
         $request->validate([
             'story_id' => 'required|exists:stories,id',
+            'order' => 'required|numeric',
             'title' => 'required|string|max:255',
             'content' => 'required|string',
         ]);
 
-        Chapter::create($request->only('story_id', 'title', 'content'));
+        Chapter::create($request->only('story_id', 'order', 'title', 'content'));
 
         return redirect()->route('chapters.index')->with('success', 'Chapter created successfully.');
     }
@@ -44,11 +45,12 @@ class ChapterController extends Controller
     {
         $request->validate([
             'story_id' => 'required|exists:stories,id',
+            'order' => 'required|numeric',
             'title' => 'required|string|max:255',
             'content' => 'required|string',
         ]);
 
-        $chapter->update($request->only('story_id', 'title', 'content'));
+        $chapter->update($request->only('story_id', 'order', 'title', 'content'));
 
         return redirect()->route('chapters.index')->with('success', 'Chapter updated successfully.');
     }

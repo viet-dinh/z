@@ -1,0 +1,17 @@
+.navbar-nav {
+    margin-left: 20px;
+    gap: 20px;
+}
+
+.hover-dropdown .dropdown-menu {
+    display: none;
+    position: absolute; /* Adjust as necessary */
+}
+
+.hover-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.hover-dropdown .dropdown-toggle::after {
+    content: none; /* Remove the arrow/icon on mobile */
+}

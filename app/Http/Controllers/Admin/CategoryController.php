@@ -45,7 +45,7 @@ class CategoryController extends Controller
         $request->validate(['name' => 'required|string|max:255']);
         $category->update([
             ...$request->only('name'),
-            'slug' => $this->slugService->createSlug($request->name, new Category)
+            'slug' => $this->slugService->createSlug($request->name, new Category, $category->id)
         ]);
         return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
     }

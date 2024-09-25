@@ -66,7 +66,7 @@ class StoryController extends Controller
         ]);
 
         $updateFiedls = $request->only('title', 'author_name', 'status', 'description');
-        $updateFiedls['slug'] = $this->slugService->createSlug($request->title, new Story);
+        $updateFiedls['slug'] = $this->slugService->createSlug($request->title, new Story, $story->id);
 
         if ($request->hasFile('thumbnail')) {
             $oldThumbnailPath = public_path('thumbnails/' . $story->thumbnail);

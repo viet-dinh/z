@@ -15,6 +15,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Link</th>
                     <th>Title</th>
                     <th>Thumbnail</th>
                     <th>Categories</th>
@@ -27,6 +28,7 @@
                 @foreach ($stories as $story)
                     <tr>
                         <td>{{ $story->id }}</td>
+                        <td><a target="_blank" href="{{ route('story.show', $story->slug) }}">Preview</a></td>
                         <td>{{ $story->title }}</td>
                         <td><img src="{{ asset('thumbnails/' . $story->thumbnail) }}" alt="Thumbnail" class="img-thumbnail"
                                 style="max-height: 100px;"></td>

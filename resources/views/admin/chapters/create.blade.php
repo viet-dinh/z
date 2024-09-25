@@ -15,6 +15,10 @@
                 </select>
             </div>
             <div class="mb-3">
+                <label for="order" class="form-label">Order</label>
+                <input type="number" name="order" class="form-control" required>
+            </div>
+            <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" name="title" class="form-control" required>
             </div>

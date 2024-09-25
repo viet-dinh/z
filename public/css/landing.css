@@ -154,3 +154,9 @@ button {
 .hover-dropdown .dropdown-toggle::after {
     content: none; /* Remove the arrow/icon on mobile */
 }
+
+.story-link {
+    text-decoration: none; /* Remove underline */
+    display: block; /* Make the link cover the full area */
+    color: inherit; /* Ensure text color is inherited */
+}

@@ -22,6 +22,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+require __DIR__ . '/auth.php';
+require __DIR__ . '/passport.php';
+
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
 Route::get('/dashboard', function () {
@@ -47,7 +50,5 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::resource('chapters', ChapterController::class);
 });
 
-Route::get('/{slug}', [SlugController::class, 'index'])->name('slug');
-
-require __DIR__ . '/auth.php';
-require __DIR__ . '/passport.php';
+Route::get('/{slug}', [SlugController::class, 'showStory'])->name('story.show');
+Route::get('/{slug}/chuong-{id}', [SlugController::class, 'showChapter'])->name(name: 'chapter.show');

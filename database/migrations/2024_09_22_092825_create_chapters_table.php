@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
             $table->foreignId('story_id')->constrained()->onDelete('cascade');
+            $table->integer('order');
             $table->string('title');
             $table->text('content');
             $table->timestamps();

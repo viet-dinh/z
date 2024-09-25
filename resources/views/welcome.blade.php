@@ -81,15 +81,17 @@
         <div class="swiper-wrapper">
             @foreach ($stories as $index => $story)
                 <div class="swiper-slide">
-                    <div class="story-card">
-                        <div class="story-card-bg"
-                            style="background-image: url('{{ asset('thumbnails/' . $story->thumbnail) }}');">
-                            <div class="story-card-content">
-                                <span class="story-title text-white">{{ $story->title }}</span>
-                                <span class="story-description text-white">{{ $story->description }}</span>
+                    <a href="{{ route('story.show', $story->slug) }}" class="story-link">
+                        <div class="story-card">
+                            <div class="story-card-bg"
+                                style="background-image: url('{{ asset('thumbnails/' . $story->thumbnail) }}');">
+                                <div class="story-card-content">
+                                    <span class="story-title text-white">{{ $story->title }}</span>
+                                    <span class="story-description text-white">{{ $story->description }}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             @endforeach
         </div>

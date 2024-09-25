@@ -23,4 +23,9 @@ class Story extends Model
     {
         return $this->belongsToMany(Category::class, 'story_category');
     }
+
+    public function getThumnailUrl(): string
+    {
+        return asset('thumbnails/' . $this->thumbnail);
+    }
 }
