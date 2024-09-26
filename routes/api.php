@@ -4,6 +4,9 @@ use App\Events\MessageSent;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\ReactionController;
+use App\Http\Controllers\Api\ReplyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +24,23 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::middleware(['auth'])->post('/chat/message-all', function (Request $request) {
+Route::middleware(['auth:sanctum'])->post('/chat/message-all', function (Request $request) {
 
     event(new MessageSent(Auth()->user()->name . ' sent: ' . $request->get('message')));
 
     return true;
 });
+
+
+Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
+    // Comments
+    Route::post('stories/{storyId}/comments', [CommentController::class, 'store'])->name('stories.comments.store');
+    Route::get('stories/{storyId}/comments', [CommentController::class, 'index']);
+
+    // Replies
+    Route::post('comments/{commentId}/replies', [ReplyController::class, 'store'])->name('comments.replies.store');
+
+    // Reactions
+    Route::post('reactions/{reactableType}/{reactableId}', [ReactionController::class, 'store'])->name('reactions.store');
+});
+

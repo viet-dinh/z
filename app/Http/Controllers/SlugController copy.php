@@ -11,7 +11,7 @@ class SlugController extends Controller
 {
     public function showStory(string $slug)
     {
-        $story = Story::with('comments.replies.reactions', 'comments.reactions')->where('slug', $slug)->first();
+        $story = Story::where('slug', $slug)->first();
 
         if (!$story) {
             return Redirect::to('/');
