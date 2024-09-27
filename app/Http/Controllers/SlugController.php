@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Chapter;
 use App\Models\Story;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class SlugController extends Controller
@@ -22,7 +23,9 @@ class SlugController extends Controller
             ['title' => $story->title, 'url' => ''],
         ];
 
-        return view('stories.show', compact('story', 'breadcrumbs'));
+        $authId = Auth::id();
+
+        return view('stories.show', compact('story', 'breadcrumbs', 'authId'));
     }
 
     public function showChapter(string $slug, int $chapterOrder)

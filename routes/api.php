@@ -35,7 +35,6 @@ Route::middleware(['auth:sanctum'])->post('/chat/message-all', function (Request
 Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     // Comments
     Route::post('stories/{storyId}/comments', [CommentController::class, 'store'])->name('stories.comments.store');
-    Route::get('stories/{storyId}/comments', [CommentController::class, 'index']);
 
     // Replies
     Route::post('comments/{commentId}/replies', [ReplyController::class, 'store'])->name('comments.replies.store');
@@ -43,4 +42,9 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     // Reactions
     Route::post('reactions/{reactableType}/{reactableId}', [ReactionController::class, 'store'])->name('reactions.store');
 });
+
+Route::prefix('v1')->group(function () {
+    Route::get('stories/{storyId}/comments', [CommentController::class, 'index']);
+});
+
 

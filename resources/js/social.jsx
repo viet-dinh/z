@@ -6,18 +6,13 @@ import React from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "./theme";
-import CommentList from "./components/comments/CommentList.jsx";
-import { AuthProvider } from "./AuthProvider.jsx";
+import { CommentList } from "./components/comments/CommentList.jsx";
 
-const socialDiv = document.getElementById('root');
+const socialDiv = document.getElementById('social');
 const storyId = socialDiv.getAttribute('story-id');  // Get the story ID from the div
-const authUserId = socialDiv.getAttribute('auth-user-id');  // Get the story ID from the div
-
+console.log(storyId, 'ss')
 ReactDOM.createRoot(socialDiv).render(
     <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AuthProvider authUserId={authUserId}>  {/* Wrap with AuthProvider */}
-            <CommentList storyId={storyId} />
-        </AuthProvider>
     </ThemeProvider>
 );
