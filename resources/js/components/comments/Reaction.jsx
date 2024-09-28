@@ -1,14 +1,32 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSmile } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 import Popper from "@mui/material/Popper";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { useAuth } from "../../AuthProvider";
-import { Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Box } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import api from "../../api";
+
+// Import SVG icons
+import LikeIcon from "../../../icons/reactions/like.svg";
+import LoveIcon from "../../../icons/reactions/love.svg";
+import LaughIcon from "../../../icons/reactions/laugh.svg";
+import WowIcon from "../../../icons/reactions/wow.svg";
+import SadIcon from "../../../icons/reactions/sad.svg";
+import AngryIcon from "../../../icons/reactions/angry.svg";
+
+// Map icons to reaction types
+const REACTION_ICONS = {
+    0: LikeIcon,
+    1: LoveIcon,
+    2: LaughIcon,
+    3: WowIcon,
+    4: SadIcon,
+    5: AngryIcon,
+};
 
 export const REACTION_TYPES = {
     LIKE: 0,
@@ -19,40 +37,19 @@ export const REACTION_TYPES = {
     ANGRY: 5,
 };
 
-export const REACTION_EMOJIS = {
-    [REACTION_TYPES.LIKE]: "👍",
-    [REACTION_TYPES.LOVE]: "❤️",
-    [REACTION_TYPES.LAUGH]: "😂",
-    [REACTION_TYPES.WOW]: "😮",
-    [REACTION_TYPES.SAD]: "😢",
-    [REACTION_TYPES.ANGRY]: "😡",
-};
-
-const HighlightedIcon = styled(Box)(({ theme }) => ({
-    backgroundColor: 'yellow',
-    borderRadius: '4px',
-    padding: '2px',
-    // You can also add hover effects or other styles here
-    '&:hover': {
-        backgroundColor: 'lightyellow',
-    },
-}));
-
 const Reaction = ({ reactableType, reactableId, initialReactions }) => {
-    const {authId} = useAuth();
+    const { authId } = useAuth();
     const [reactions, setReactions] = useState(initialReactions ?? []);
     const [anchorEl, setAnchorEl] = useState(null);
 
-    // Group reactions by type and count them
     const reactionCounts = Object.keys(REACTION_TYPES).reduce((acc, key) => {
         const type = REACTION_TYPES[key];
-        var count = 0;
+        let count = 0;
+        let isCheckedByMine = false;
 
-        var isCheckedByMine = false;
-        reactions.forEach(reaction => {
-            if(reaction.type === type) {
+        reactions.forEach((reaction) => {
+            if (reaction.type === type) {
                 count++;
-
                 if (reaction.user_id == authId) {
                     isCheckedByMine = true;
                 }
@@ -64,30 +61,33 @@ const Reaction = ({ reactableType, reactableId, initialReactions }) => {
             count,
             active: isCheckedByMine,
         };
-
         return acc;
     }, {});
 
-    const handleReactionClick = async ({type, reaction}) => {
+    const handleReactionClick = async ({ type, reaction }) => {
         try {
-            console.log(reaction)
-            await axios.post(`/api/v1/reactions/${reactableType}/${reactableId}`, {
-                type
-            }).then(response => {
-                //deleted
-                if (response.data === 0 ) {
-                    if (reaction) {
-                        setReactions(previous => previous.filter(r => r.id !== reaction.id));
+            await api
+                .post(`/reactions/${reactableType}/${reactableId}`, {
+                    type,
+                })
+                .then((response) => {
+                    if (response.data === 0) {
+                        if (reaction) {
+                            setReactions((previous) =>
+                                previous.filter((r) => r.id !== reaction.id)
+                            );
+                        }
+                    } else {
+                        setReactions((previous) => [
+                            ...previous,
+                            response.data,
+                        ]);
                     }
-                } else {
-                    setReactions(previous => [...previous, response.data]);
-                }
-            });
+                });
         } catch (error) {
             console.error("Error updating reaction:", error);
         }
-
-        setAnchorEl(null);  // Close the emoji picker
+        setAnchorEl(null); // Close the emoji picker
     };
 
     const togglePicker = (event) => {
@@ -99,39 +99,85 @@ const Reaction = ({ reactableType, reactableId, initialReactions }) => {
     };
 
     const open = Boolean(anchorEl);
-    const id = open ? 'reaction-popper' : undefined;
+    const id = open ? "reaction-popper" : undefined;
 
     return (
-        <div className="d-flex align-items-center">
-            {/* Display each reaction icon with count */}
-            {Object.values(reactionCounts).map(( {type, active, count}) => (
-                <Box 
+        <div className="flex items-center gap-2">
+            {Object.values(reactionCounts).map(({ type, active, count }) => (
+                <button
                     key={type}
+                    onClick={() =>
+                        handleReactionClick({
+                            type,
+                            reaction: reactions
+                                .filter(
+                                    (x) =>
+                                        x.user_id == authId && x.type === type
+                                )
+                                .pop(),
+                        })
+                    }
                     title={type}
-                    className={`reaction-icon ${count === 0 ? 'd-none' : ''} ${active ? 'highlight' : ''} `} >
-                         {REACTION_EMOJIS[type]} {count}
-                </Box>
+                    className={`flex reaction-button items-center space-x-2 rounded-lg border ${
+                        count === 0 ? "hidden" : "inline-flex"
+                    } ${
+                        active ? "highlight" : ""
+                    } hover:bg-gray-200 transition-all duration-200 ease-in-out cursor-pointer`}
+                >
+                    <img
+                        src={REACTION_ICONS[type]}
+                        width={18}
+                        height={18}
+                        alt={type}
+                        className="object-contain"
+                    />
+                    <span className="text-sm ml-1 font-medium">{count}</span>
+                </button>
             ))}
 
             {/* FontAwesome smile icon as a placeholder */}
-            <div className="reaction-icon" onClick={togglePicker} title="Add Reaction">
+            <div
+                className="cursor-pointer text-gray-600 hover:text-gray-800 transition-colors"
+                onClick={togglePicker}
+                title="Thêm cảm xúc"
+            >
                 <FontAwesomeIcon icon={faSmile} />
             </div>
 
             {/* Popper component for the emoji picker */}
-            <Popper id={id} open={open} anchorEl={anchorEl} placement="bottom-start">
+            <Popper
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                placement="bottom-start"
+            >
                 <ClickAwayListener onClickAway={handleClose}>
-                    <Paper style={{ padding: '10px', display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                    <Paper className="p-2 flex flex-wrap gap-4">
                         {Object.keys(REACTION_TYPES).map((key) => {
                             const type = REACTION_TYPES[key];
                             return (
-                                <Button
+                                <div
                                     key={type}
-                                    onClick={() => handleReactionClick({ type, reaction: reactions.filter(x=> x.user_id == authId && x.type === type).pop() })}
-                                    style={{ minWidth: '40px', padding: '5px' }}
+                                    onClick={() =>
+                                        handleReactionClick({
+                                            type,
+                                            reaction: reactions
+                                                .filter(
+                                                    (x) =>
+                                                        x.user_id == authId &&
+                                                        x.type === type
+                                                )
+                                                .pop(),
+                                        })
+                                    }
+                                    className="reaction-icon"
                                 >
-                                    {REACTION_EMOJIS[type]}
-                                </Button>
+                                    <img
+                                        src={REACTION_ICONS[type]}
+                                        alt={key}
+                                        className="reaction-img"
+                                    />
+                                </div>
                             );
                         })}
                     </Paper>

@@ -5,61 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Story Landing Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 </head>
 
-<body>
-    <header class="p-3 border-bottom">
-        <div class="container">
-            <nav class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+<body class="flex flex-col min-h-screen">
+    <header class="bg-white border-b">
+        <div class="container mx-auto py-4">
+            <nav class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="/" class="text-2xl font-bold text-gray-900">
                     Storyland
                 </a>
-                <div class="d-flex flex-row navbar-nav me-auto mb-2 mb-lg-0">
-                    {{-- <div class="nav-item dropdown hover-dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button"
-                            aria-expanded="false">
-                            Thể loại
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
-                            @foreach ($categories as $category)
-                                <li><a class="dropdown-item"
-                                        href="{{ route('welcome', $category->id) }}">{{ $category->name }}</a></li>
-                            @endforeach
-                        </ul>
-                    </div> --}}
-                    <div class="w-100">
-                        <form class="col-12" action="{{ route('welcome') }}" method="GET">
-                            <input type="search" class="form-control custom-input" placeholder="Tìm kiếm truyện..."
-                                aria-label="Search" name="query" value="{{ request()->input('query') }}">
-                        </form>
-                    </div>
+
+                <!-- Search Bar -->
+                <div class="flex-grow mx-8">
+                    <form action="{{ route('welcome') }}" method="GET" class="w-full">
+                        <input type="search"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            placeholder="Tìm kiếm truyện..." aria-label="Search" name="query"
+                            value="{{ request()->input('query') }}">
+                    </form>
                 </div>
 
-
-                <div class="dropdown text-end">
+                <!-- User Profile / Auth Links -->
+                <div class="relative">
                     @auth
-                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ Auth::user()->name }}
-                        </a>
-                        <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
-                            <li><a class="dropdown-item" href="{{ route('logout') }}">Settings</a></li>
+                        <button class="text-gray-900 font-medium flex items-center space-x-2 focus:outline-none"
+                            id="dropdownUser1">
+                            <span>{{ Auth::user()->name }}</span>
+                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <ul class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md hidden" id="userDropdown">
                             <li>
-                                <hr class="dropdown-divider">
+                                <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    href="{{ route('profile.edit') }}">Profile</a>
                             </li>
-                            <li><a class="dropdown-item" href="{{ route('logout') }}"
+                            <li>
+                                <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    href="{{ route('logout') }}">Settings</a>
+                            </li>
+                            <li>
+                                <hr class="border-gray-200 my-2">
+                            </li>
+                            <li>
+                                <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign
-                                    out</a></li>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
+                                    out</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
                         </ul>
                     @else
-                        <a href="{{ route('login') }}" class="d-block link-dark text-decoration-none" id="login-link">
+                        <a href="{{ route('login') }}" class="text-indigo-500 font-medium" id="login-link">
                             Login
                         </a>
                     @endauth
@@ -68,28 +69,31 @@
         </div>
     </header>
 
-    <main class="flex-fill p-4">
+    <main class="flex-grow p-2">
         @yield('content')
     </main>
 
     <!-- Footer -->
-    <footer>
-        <p>© 2024 StoryLand. All rights reserved.</p>
+    <footer class="bg-gray-100 py-4">
+        <div class="container mx-auto text-center text-sm text-gray-500">
+            © 2024 StoryLand. All rights reserved.
+        </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
-    </script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            const currentUrl = window.location.pathname + window.location.search;
+            const redirectUrl = `/login?redirect=${encodeURIComponent(currentUrl)}`;
+            $('#login-link').attr('href', redirectUrl);
+
+            // Dropdown toggle
+            $('#dropdownUser1').on('click', function() {
+                $('#userDropdown').toggleClass('hidden');
+            });
+        });
+    </script>
 </body>
 
 </html>
-
-<script>
-    $(document).ready(function() {
-        const currentUrl = window.location.pathname + window.location.search;
-        const redirectUrl = `/login?redirect=${encodeURIComponent(currentUrl)}`;
-        $('#login-link').attr('href', redirectUrl);
-    });
-</script>

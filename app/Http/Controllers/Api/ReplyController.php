@@ -22,6 +22,8 @@ class ReplyController extends Controller
             'comment_id' => $commentId,
         ]);
 
+        $reply->user = Auth::user();
+
         return response()->json($reply, 201);
     }
 }

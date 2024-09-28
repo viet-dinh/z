@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import axios from "axios";
 import Comment from "./Comment";
+import { QuestionProvider } from "./CommentProvider";
+import api from "../../api";
+import { Button, TextField } from "@mui/material";
+import IconTextField from "./IconTextField";
 
 const CommentList = ({ storyId }) => {
     const [comments, setComments] = useState([]);
@@ -16,12 +19,16 @@ const CommentList = ({ storyId }) => {
 
     const loadComments = (pageNumber) => {
         setLoading(true);
-        axios
-            .get(`/api/v1/stories/${storyId}/comments?page=${pageNumber}`)
+        api.get(`/stories/${storyId}/comments?page=${pageNumber}`)
             .then((response) => {
                 const newComments = response.data.data;
-                setComments((prevComments) => [...prevComments, ...newComments]);
-                setHasMore(response.data.current_page < response.data.last_page);
+                setComments((prevComments) => [
+                    ...prevComments,
+                    ...newComments,
+                ]);
+                setHasMore(
+                    response.data.current_page < response.data.last_page
+                );
                 setLoading(false);
             })
             .catch((error) => {
@@ -30,15 +37,17 @@ const CommentList = ({ storyId }) => {
             });
     };
 
-    const handleSubmitComment = (e) => {
-        e.preventDefault();
-        axios
-            .post(`/api/v1/stories/${storyId}/comments`, { content: newComment })
+    const handleSubmitComment = () => {
+        api.post(`/stories/${storyId}/comments`, {
+            content: newComment,
+        })
             .then((response) => {
                 setComments([response.data, ...comments]);
                 setNewComment("");
             })
-            .catch((error) => console.error("Error submitting comment:", error));
+            .catch((error) =>
+                console.error("Error submitting comment:", error)
+            );
     };
 
     const lastCommentRef = useCallback(
@@ -56,42 +65,43 @@ const CommentList = ({ storyId }) => {
 
     return (
         <div className="mt-5">
-            <h2 className="h3">Comments</h2>
+            <h2 className="text-xl font-semibold mb-4">Comments</h2>
 
-            <form onSubmit={handleSubmitComment}>
+            <form className="space-y-4">
                 <div className="form-group">
-                    <textarea
+                    <IconTextField
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
-                        rows="3"
-                        className="form-control"
-                        placeholder="Add your comment here..."
+                        onSubmit={() => handleSubmitComment()}
+                        placeholder={"Viêt bình luận"}
                     />
                 </div>
-                <button type="submit" className="btn btn-primary">
-                    Submit Comment
-                </button>
             </form>
 
-            <div className="mt-5">
+            <div className="mt-5 space-y-4">
                 {comments.map((comment, index) => {
                     if (comments.length === index + 1) {
                         return (
                             <div ref={lastCommentRef} key={comment.id}>
-                                <Comment comment={comment} />
+                                <QuestionProvider>
+                                    <Comment comment={comment} />
+                                </QuestionProvider>
                             </div>
                         );
                     } else {
-                        return <Comment key={comment.id} comment={comment} />;
+                        return (
+                            <QuestionProvider key={comment.id}>
+                                <Comment comment={comment} />
+                            </QuestionProvider>
+                        );
                     }
                 })}
             </div>
 
             {loading && (
                 <div className="text-center mt-4">
-                    <div className="spinner-border" role="status">
-                        <span className="sr-only">Loading...</span>
-                    </div>
+                    <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-blue-500 border-solid"></div>
+                    <p className="mt-2 text-sm text-gray-500">Loading...</p>
                 </div>
             )}
         </div>

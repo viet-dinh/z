@@ -3,7 +3,48 @@
 @tailwind utilities;
 
 .highlight {
-    background-color: yellow;
-    border-radius: 4px;
-    padding: 2px;
+    background-color: rgba(75, 89, 248, 0.2);
+}
+
+.reaction-icon {
+    padding: 0.25rem; /* Same as p-1 in Tailwind */
+    cursor: pointer;
+}
+
+.reaction-img {
+    width: 1.5rem; /* Same as w-6 in Tailwind */
+    transition: transform 0.15s ease-in-out; /* Smooth transition for scaling */
+}
+
+.reaction-icon:hover .reaction-img {
+    transform: scale(1.2);
+}
+
+.gap-2 {
+    gap: 8px;
+}
+
+.reaction-button {
+    padding: 4px 8px;
+    border-radius: 99px;
+}
+
+.text-secondary {
+    color: #668085;
+}
+
+textarea:focus {
+    box-shadow: none;
+}
+
+.reply-container {
+    display: flex;
+    flex-direction: column; /* Default to vertical layout */
+}
+
+/* Media Query for larger screens */
+@media (min-width: 640px) {
+    .reply-container {
+        flex-direction: row; /* Switch to horizontal layout */
+    }
 }

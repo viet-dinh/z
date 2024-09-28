@@ -49,6 +49,8 @@ class SlugController extends Controller
             ['title' => $chapter->title, 'url' => ''], // Current page has no URL
         ];
 
-        return view('chapters.show', compact('story', 'chapter', 'breadcrumbs'));
+        $authId = Auth::id();
+
+        return view('chapters.show', compact('story', 'chapter', 'breadcrumbs', 'authId'));
     }
 }
