@@ -16,9 +16,14 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      */
-    public function create(): View
+    public function create(Request $request): View
     {
+        if ($request->get('redirect')) {
+            session()->put('redirect', $request->get('redirect'));
+        }
+
         return view('auth.login');
+
     }
 
     /**
@@ -26,13 +31,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        $redirectUrl = session('redirect');
+
         $request->authenticate();
-
         $request->session()->regenerate();
-
-
-        //     event(new UserLogginedApp(auth()->user()));
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->intended($redirectUrl);
     }
 
     /**
@@ -43,7 +46,6 @@ class AuthenticatedSessionController extends Controller
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect('/');

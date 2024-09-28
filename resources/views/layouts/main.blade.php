@@ -59,7 +59,9 @@
                             </form>
                         </ul>
                     @else
-                        <a href="{{ route('login') }}" class="d-block link-dark text-decoration-none">Login</a>
+                        <a href="{{ route('login') }}" class="d-block link-dark text-decoration-none" id="login-link">
+                            Login
+                        </a>
                     @endauth
                 </div>
             </nav>
@@ -85,5 +87,9 @@
 </html>
 
 <script>
-    $(document).ready(function() {})
+    $(document).ready(function() {
+        const currentUrl = window.location.pathname + window.location.search;
+        const redirectUrl = `/login?redirect=${encodeURIComponent(currentUrl)}`;
+        $('#login-link').attr('href', redirectUrl);
+    });
 </script>

@@ -44,7 +44,7 @@ Route::middleware('guest')->group(function () {
         Route::get('/callback', function () {
             $googleUser = Socialite::driver('google')->user();
             $user = User::where('email', $googleUser->email)->first();
-        
+
             if (!$user) {
                 $user = User::updateOrCreate([
                     'google_id' => $googleUser->id,
@@ -54,9 +54,10 @@ Route::middleware('guest')->group(function () {
                 ]);
             }
 
+            $redirectUrl = session('redirect') ?: '/';
             Auth::login($user);
 
-            return redirect('/dashboard');
+            return redirect($redirectUrl);
         });
     });
 });
