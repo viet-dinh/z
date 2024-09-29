@@ -14,7 +14,7 @@ class CommentController extends Controller
     public function store(Request $request, $storyId)
     {
         $request->validate([
-            'content' => 'required|string',
+            'content' => 'required|string|max:1024',
             'chapter_order' => 'nullable|integer',
         ]);
 

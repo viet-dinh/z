@@ -13,7 +13,7 @@ class ReplyController extends Controller
     public function store(Request $request, $commentId)
     {
         $request->validate([
-            'content' => 'required|string',
+            'content' => 'required|string|max:1024',
         ]);
 
         $reply = Reply::create([

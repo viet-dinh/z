@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { useAuth } from "../../AuthProvider";
-import { Box } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import api from "../../api";
 
@@ -17,6 +17,7 @@ import LaughIcon from "../../../icons/reactions/laugh.svg";
 import WowIcon from "../../../icons/reactions/wow.svg";
 import SadIcon from "../../../icons/reactions/sad.svg";
 import AngryIcon from "../../../icons/reactions/angry.svg";
+import AddReaction from "../../../icons/reactions/add-reaction.svg";
 
 // Map icons to reaction types
 const REACTION_ICONS = {
@@ -102,7 +103,7 @@ const Reaction = ({ reactableType, reactableId, initialReactions }) => {
     const id = open ? "reaction-popper" : undefined;
 
     return (
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
             {Object.values(reactionCounts).map(({ type, active, count }) => (
                 <button
                     key={type}
@@ -135,14 +136,14 @@ const Reaction = ({ reactableType, reactableId, initialReactions }) => {
                 </button>
             ))}
 
-            {/* FontAwesome smile icon as a placeholder */}
-            <div
-                className="cursor-pointer text-gray-600 hover:text-gray-800 transition-colors"
-                onClick={togglePicker}
-                title="Thêm cảm xúc"
-            >
-                <FontAwesomeIcon icon={faSmile} />
-            </div>
+            <IconButton onClick={togglePicker}>
+                <img
+                    src={AddReaction}
+                    width={18}
+                    height={18}
+                    alt={"Thêm reaction"}
+                />
+            </IconButton>
 
             {/* Popper component for the emoji picker */}
             <Popper

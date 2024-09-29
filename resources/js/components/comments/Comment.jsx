@@ -5,7 +5,8 @@ import Reaction from "./Reaction.jsx";
 import vi from "date-fns/locale/vi";
 import ReplyForm from "./ReplyForm.jsx";
 import { QuestionContext } from "./CommentProvider.jsx";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
+import Content from "./Content.jsx";
 
 const Comment = ({ comment }) => {
     const { setReplies } = useContext(QuestionContext);
@@ -31,7 +32,7 @@ const Comment = ({ comment }) => {
                 </span>
             </div>
 
-            <p className="text-gray-700">{comment.content}</p>
+            <Content value={comment.content} />
 
             <div className="flex gap-2 mt-2 reply-container">
                 <Reaction

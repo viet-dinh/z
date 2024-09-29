@@ -1,9 +1,9 @@
 @extends('layouts.main')
 
 @section('content')
-    @include('partials.breadcrumb', ['breadcrumbs' => $breadcrumbs])
+    <div class="container mx-auto py-8 p-2">
+        @include('partials.breadcrumb', ['breadcrumbs' => $breadcrumbs])
 
-    <div class="container mx-auto py-8">
         <div class="flex flex-col lg:flex-row">
             <!-- Left side: Thumbnail -->
             <div class="lg:w-1/3 mb-6 lg:mb-0">
@@ -60,4 +60,5 @@
         @vite(['resources/css/app.css'])
         @viteReactRefresh
         @vite('resources/js/app.jsx')
-    @endsection
+    </div>
+@endsection

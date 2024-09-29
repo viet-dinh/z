@@ -24,7 +24,9 @@ const Reply = ({ reply, setReplyTo }) => {
                 </span>
             </div>
 
-            <p className="text-gray-700">{reply.content}</p>
+            <p className="text-gray-700" style={{ whiteSpace: "pre-line" }}>
+                {reply.content}
+            </p>
 
             <div class="flex gap-2 mt-2 reply-container">
                 <Reaction

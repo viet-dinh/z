@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Story Landing Page</title>
-    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    @vite(['resources/css/app.css'])
+    @stack('styles')
 </head>
 
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen font-open">
     <header class="bg-white border-b">
         <div class="container mx-auto py-4">
             <nav class="flex items-center justify-between">
                 <!-- Logo -->
-                <a href="/" class="text-2xl font-bold text-gray-900">
+                <a href="/" class="text-2xl font-island text-gray-900">
                     Storyland
                 </a>
 
@@ -69,19 +70,22 @@
         </div>
     </header>
 
-    <main class="flex-grow p-2">
+    <main class="flex-grow">
         @yield('content')
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-100 py-4">
-        <div class="container mx-auto text-center text-sm text-gray-500">
+    <footer class="bg-footer-bg py-4">
+        <div class="container mx-auto text-center text-sm text-footer-text">
             © 2024 StoryLand. All rights reserved.
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <script>
         $(document).ready(function() {
             const currentUrl = window.location.pathname + window.location.search;
@@ -94,6 +98,8 @@
             });
         });
     </script>
+
+    @stack('scripts')
 </body>
 
 </html>
