@@ -51,4 +51,4 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
 });
 
 Route::get('/{slug}', [SlugController::class, 'showStory'])->name('story.show');
-Route::get('/{slug}/chuong-{id}', [SlugController::class, 'showChapter'])->name(name: 'chapter.show');
+Route::get('/{slug}/chuong-{order}', [SlugController::class, 'showChapter'])->name(name: 'chapter.show');

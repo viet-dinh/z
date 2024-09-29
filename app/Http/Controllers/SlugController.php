@@ -19,7 +19,7 @@ class SlugController extends Controller
         }
 
         $breadcrumbs = [
-            ['title' => 'Home', 'url' => route('welcome')],
+            ['title' => 'Trang chủ', 'url' => route('welcome')],
             ['title' => $story->title, 'url' => ''],
         ];
 
@@ -31,11 +31,11 @@ class SlugController extends Controller
     public function showChapter(string $slug, int $chapterOrder)
     {
         $story = Story::where('slug', $slug)->first();
+        $totalChapter = $story->chapters()->count();
 
         if (!$story) {
             return Redirect::to('/');
         }
-
         $chapter = Chapter::where('story_id', $story->id)
             ->where('order', $chapterOrder)->first();
 
@@ -44,13 +44,13 @@ class SlugController extends Controller
         }
 
         $breadcrumbs = [
-            ['title' => 'Home', 'url' => route('welcome')],
+            ['title' => 'Trang chủ', 'url' => route('welcome')],
             ['title' => $story->title, 'url' => route('story.show', $story->slug)],
             ['title' => $chapter->title, 'url' => ''], // Current page has no URL
         ];
 
         $authId = Auth::id();
 
-        return view('chapters.show', compact('story', 'chapter', 'breadcrumbs', 'authId'));
+        return view('chapters.show', compact('story', 'chapter', 'breadcrumbs', 'authId', 'totalChapter'));
     }
 }

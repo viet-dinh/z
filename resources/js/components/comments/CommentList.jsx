@@ -64,8 +64,8 @@ const CommentList = ({ storyId }) => {
     );
 
     return (
-        <div className="mt-5">
-            <h2 className="text-xl font-semibold mb-4">Comments</h2>
+        <div className="mt-4">
+            <h2 className="text-xl font-semibold mb-4">Bình luận</h2>
 
             <form className="space-y-4">
                 <div className="form-group">

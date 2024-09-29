@@ -15,7 +15,7 @@
             <nav class="flex items-center justify-between">
                 <!-- Logo -->
                 <a href="/" class="text-2xl font-island text-gray-900">
-                    Storyland
+                    Truyện TV
                 </a>
 
                 <!-- Search Bar -->
@@ -42,19 +42,15 @@
                         <ul class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md hidden" id="userDropdown">
                             <li>
                                 <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                    href="{{ route('profile.edit') }}">Profile</a>
-                            </li>
-                            <li>
-                                <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                    href="{{ route('logout') }}">Settings</a>
+                                    href="{{ route('profile.edit') }}">Trang cá nhân</a>
                             </li>
                             <li>
                                 <hr class="border-gray-200 my-2">
                             </li>
                             <li>
                                 <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign
-                                    out</a>
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng
+                                    xuất</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>
