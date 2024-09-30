@@ -29,7 +29,7 @@ class Story extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function getThumnailUrl(): string
+    public function getThumbnailUrl(): string
     {
         return asset('thumbnails/' . $this->thumbnail);
     }

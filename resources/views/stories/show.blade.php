@@ -8,7 +8,7 @@
             <!-- Left side: Thumbnail -->
             <div class="lg:w-1/3 mb-6 lg:mb-0">
                 <div class="w-full h-72 lg:h-96 overflow-hidden rounded-lg shadow-lg">
-                    <img src="{{ $story->getThumnailUrl() }}" alt="Story Thumbnail" class="object-cover w-full h-full">
+                    <img src="{{ $story->getThumbnailUrl() }}" alt="Story Thumbnail" class="object-cover w-full h-full">
                 </div>
             </div>
 

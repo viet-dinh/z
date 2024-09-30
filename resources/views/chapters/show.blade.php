@@ -9,7 +9,7 @@
             <h1 class="text-3xl font-bold mb-6">{{ $chapter->title }}</h1>
 
             <!-- Chapter Content -->
-            <div class="prose lg:prose-lg max-w-full mb-8">
+            <div class="prose lg:prose-lg max-w-full mb-8 whitespace-pre-line break-words">
                 {!! $chapter->content !!}
             </div>
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\StoryController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SlugController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Http\Request;
@@ -50,5 +51,6 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::resource('chapters', ChapterController::class);
 });
 
+Route::get('/tim-kiem', action: [SearchController::class, 'index'])->name('search.show');
 Route::get('/{slug}', [SlugController::class, 'showStory'])->name('story.show');
 Route::get('/{slug}/chuong-{order}', [SlugController::class, 'showChapter'])->name(name: 'chapter.show');

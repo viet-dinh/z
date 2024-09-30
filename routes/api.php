@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\ReactionController;
 use App\Http\Controllers\Api\ReplyController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,7 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
 
 Route::prefix('v1')->group(function () {
     Route::get('stories/{storyId}/comments', [CommentController::class, 'index']);
+    Route::get('search', [SearchController::class, 'search'])->name('search');
 });
 
 

@@ -53,7 +53,7 @@
         <div class="mt-6">
             <div class="mt-2">
                 <a href="{{ route('login.google') }}"
-                    class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md flex items-center">
+                    class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md flex items-center justify-center">
                     <i class="fab fa-google mr-2"></i> <!-- Google Icon -->
                     {{ __('auth.login_with', ['name' => 'Google']) }}
                 </a>

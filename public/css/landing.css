@@ -7,7 +7,6 @@
     color: white;
     padding: 100px 0;
     text-align: center;
-    min-height: 400px;
 }
 
 .hero h1 {
@@ -87,17 +86,12 @@ button {
 
 .new-stories {
     margin-top: 40px;
+    margin-bottom: 0;
     width: 90%;
     padding-bottom: 50px;
 }
 
 .story-card {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-    aspect-ratio: 2 / 3;
-    position: relative;
-    overflow: hidden;
     border-radius: 16px;
 }
 
