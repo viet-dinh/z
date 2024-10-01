@@ -54,7 +54,7 @@
                         class="flex justify-between items-center py-3 px-4 bg-gray-50 rounded-lg shadow hover:bg-gray-100 transition duration-150">
                         <a href="{{ route('chapter.show', [$story->slug, $chapter->order]) }}"
                             class="font-semibold text-blue-600 hover:underline">
-                            {{ $chapter->title }}
+                            {{ "Chương $chapter->order: $chapter->title " }}
                         </a>
                         <span class="text-sm text-gray-500">{{ $chapter->created_at->format('d-m-Y') }}</span>
                     </div>

@@ -10,6 +10,7 @@ class Reaction extends Model
 {
     public const REACTABLE_TYPES = ['comment', 'reply'];
     protected $fillable = ['reactable_id', 'reactable_type', 'user_id', 'type'];
+    protected $casts = ['type' => 'integer'];
 
     public function reactable()
     {

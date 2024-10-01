@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Story Landing Page</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
     @vite(['resources/css/app.css'])
     @stack('styles')
 </head>
@@ -33,9 +33,9 @@
                 </div>
 
                 <!-- User Profile / Auth Links -->
-                <div class="relative" x-data="{ open: false }">
+                <div class="relative" id="user-dropdown">
                     @auth
-                        <button @click="open = !open"
+                        <button id="dropdown-button"
                             class="text-gray-900 font-medium flex items-center space-x-2 focus:outline-none">
                             <span>{{ Auth::user()->name }}</span>
                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -45,15 +45,7 @@
                         </button>
 
                         <!-- Dropdown Menu -->
-                        <ul x-show="open" x-cloak @click.outside="open = false"
-                            class="absolute right-0 mt-2 w-48 bg-white shadow-lg z-10"
-                            x-transition:enter="transition ease-out duration-100"
-                            x-transition:enter-start="transform opacity-0 scale-95"
-                            x-transition:enter-end="transform opacity-100 scale-100"
-                            x-transition:leave="transition ease-in duration-75"
-                            x-transition:leave-start="transform opacity-100 scale-100"
-                            x-transition:leave-end="transform opacity-0 scale-95">
-
+                        <ul id="dropdown-menu" class="hidden absolute right-0 mt-2 w-48 bg-white shadow-lg z-10">
                             <li>
                                 <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:bg-gray-100 transition-colors duration-150"
                                     href="{{ route('profile.edit') }}">
@@ -94,7 +86,7 @@
     <!-- Footer -->
     <footer class="bg-footer-bg py-4">
         <div class="container mx-auto text-center text-sm text-footer-text">
-            © 2024 StoryLand. All rights reserved.
+            © 2024 Truyện TV. All rights reserved.
         </div>
     </footer>
 
@@ -111,8 +103,17 @@
             $('#login-link').attr('href', redirectUrl);
 
             // Dropdown toggle
-            $('#dropdownUser1').on('click', function() {
-                $('#userDropdown').toggleClass('hidden');
+            // Toggle dropdown visibility on button click
+            $('#dropdown-button').on('click', function(event) {
+                event.stopPropagation(); // Prevent event bubbling
+                $('#dropdown-menu').toggleClass('hidden');
+            });
+
+            // Close dropdown if clicked outside
+            $(document).on('click', function(event) {
+                if (!$(event.target).closest('#user-dropdown').length) {
+                    $('#dropdown-menu').addClass('hidden');
+                }
             });
 
             let typingTimer;
