@@ -9,7 +9,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    Sẽ phát triển sớm. Thống kê truyện gần xem, các tính năng mới sẽ đến sớm
+                    Sẽ được phát phát triển sớm. Liên hệ email: dinhquocvietpro@gmail.com để làm cộng tác hoặc yêu cầu
+                    tính năng mới
                 </div>
             </div>
         </div>
