@@ -2,6 +2,6 @@ deployment:
   tasks:
     - export DEVDEPLOYPATH=/home/lucrhuof/dev.truyentv.vn/
     - export DEPLOYPATH=/home/lucrhuof/public_html/
-    - /bin/cp -R ./ $DEVDEPLOYPATH
-    - cd $DEVDEPLOYPATH
-    - php artisan migrate --force
+    - /bin/cp -R ./ $DEVDEPLOYPATH || { echo "Copy failed"; exit 1; }
+    - cd $DEVDEPLOYPATH || { echo "Failed to change directory"; exit 1; }
+    - php artisan migrate --force || { echo "Migration failed"; exit 1; }
