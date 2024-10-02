@@ -1,7 +1,8 @@
 deployment:
   tasks:
     - export DEVDEPLOYPATH=/home/lucrhuof/dev.truyentv.vn/
-    - /bin/cp -R ./ $DEVDEPLOYPATH
-
     - export DEPLOYPATH=/home/lucrhuof/public_html/
-    - /bin/cp -R ./ $DEPLOYPATH
+
+    # Copy files, excluding the .git folder
+    - /bin/cp -R --exclude='.git' ./ $DEPLOYPATH
+    - /bin/cp -R --exclude='.git' ./ $DEVDEPLOYPATH

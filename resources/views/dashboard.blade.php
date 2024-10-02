@@ -10,9 +10,8 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     Sẽ được phát phát triển sớm. Liên hệ email: dinhquocvietpro@gmail.com để làm cộng tác hoặc yêu cầu
-                    tính năng mới
+                    tính năng mới. >< </div>
                 </div>
             </div>
         </div>
-    </div>
 </x-app-layout>
