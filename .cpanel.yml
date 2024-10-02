@@ -3,6 +3,26 @@ deployment:
     - export DEVDEPLOYPATH=/home/lucrhuof/dev.truyentv.vn/
     - export DEPLOYPATH=/home/lucrhuof/public_html/
 
-    # Copy files, excluding the .git folder
-    - /bin/cp -R --exclude='.git' ./ $DEPLOYPATH
-    - /bin/cp -R --exclude='.git' ./ $DEVDEPLOYPATH
+    # Copy necessary Laravel files and directories
+    - /bin/cp -R ./app $DEVDEPLOYPATH
+    - /bin/cp -R ./bootstrap $DEVDEPLOYPATH
+    - /bin/cp -R ./config $DEVDEPLOYPATH
+    - /bin/cp -R ./database $DEVDEPLOYPATH
+    - /bin/cp -R ./lang $DEVDEPLOYPATH
+    - /bin/cp -R ./public $DEVDEPLOYPATH
+    - /bin/cp -R ./resources $DEVDEPLOYPATH
+    - /bin/cp -R ./routes $DEVDEPLOYPATH
+    - /bin/cp -R ./composer.json $DEVDEPLOYPATH
+    - /bin/cp -R ./composer.lock $DEVDEPLOYPATH
+
+    # Now copy the same to the public_html
+    - /bin/cp -R ./app $DEPLOYPATH
+    - /bin/cp -R ./bootstrap $DEPLOYPATH
+    - /bin/cp -R ./config $DEPLOYPATH
+    - /bin/cp -R ./database $DEPLOYPATH
+    - /bin/cp -R ./lang $DEPLOYPATH
+    - /bin/cp -R ./public $DEPLOYPATH
+    - /bin/cp -R ./resources $DEPLOYPATH
+    - /bin/cp -R ./routes $DEPLOYPATH
+    - /bin/cp -R ./composer.json $DEPLOYPATH
+    - /bin/cp -R ./composer.lock $DEPLOYPATH
