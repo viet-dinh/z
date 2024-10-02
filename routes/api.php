@@ -36,6 +36,8 @@ Route::middleware(['auth:sanctum'])->post('/chat/message-all', function (Request
 Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     // Comments
     Route::post('stories/{storyId}/comments', [CommentController::class, 'store'])->name('stories.comments.store');
+    Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
+    Route::delete('/replies/{id}', [ReplyController::class, 'destroy'])->name('replies.destroy');
 
     // Replies
     Route::post('comments/{commentId}/replies', [ReplyController::class, 'store'])->name('comments.replies.store');

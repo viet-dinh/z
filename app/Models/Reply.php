@@ -4,9 +4,23 @@ namespace App\Models;
 
 use App\Enums\ReactionType;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Reply extends Model
 {
+    use SoftDeletes;
+
+    public static function boot()
+    {
+        parent::boot();
+
+        // incase hard delete
+        // static::deleting(function (self $reply) {
+        //     $reply->reactions()->delete();
+        // });
+    }
+
     protected $fillable = [
         'content',
         'user_id',

@@ -1,10 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Reply from "./Reply";
 import { QuestionContext } from "./CommentProvider";
 
 const ReplyList = ({ commentId }) => {
     const { replies } = useContext(QuestionContext);
     const [isExpanded, setIsExpanded] = useState(false);
+
+    useEffect(() => {
+        if (!replies.length) return;
+
+        setIsExpanded(true);
+    }, [replies]);
 
     return (
         <div className="ml-4 mt-3">

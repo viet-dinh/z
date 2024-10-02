@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Comment;
+use App\Models\Reply;
+use App\Policies\CommentPolicy;
+use App\Policies\ReplyPolicy;
 use Laravel\Passport\Passport;
 
 // use Illuminate\Support\Facades\Gate;
@@ -15,7 +19,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+        Comment::class => CommentPolicy::class,
+        Reply::class => ReplyPolicy::class,
     ];
 
     /**

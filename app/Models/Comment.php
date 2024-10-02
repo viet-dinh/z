@@ -3,10 +3,27 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Enums\Reaction as ReactionEnum;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Comment extends Model
 {
+    use SoftDeletes;
+
+    public static function boot()
+    {
+        parent::boot();
+
+        // incase hard delete
+        // static::deleting(function (self $comment) {
+        //     $comment->replies->each(function ($reply) {
+        //         $reply->delete();
+        //     });
+
+        //     $comment->reactions()->delete();
+        // });
+    }
+
+
     protected $fillable = ['content', 'user_id', 'story_id', 'chapter_order'];
 
     public function story()

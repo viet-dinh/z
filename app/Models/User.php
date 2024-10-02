@@ -44,15 +44,18 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // A user can have many roles
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'user_roles')->withTimestamps();
     }
 
-    // Check if a user has a specific role
     public function hasRole($roleName)
     {
         return $this->roles()->where('name', $roleName)->exists();
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->roles->contains(fn($role) => $role->name == 'admin');
     }
 }

@@ -14,7 +14,7 @@ const ReplyForm = ({ commentId, replyTo, addNewReply }) => {
             content: newReply,
         })
             .then(({ data }) => {
-                addNewReply(data);
+                addNewReply(data.data);
             })
             .catch((error) =>
                 console.error("Error submitting comment:", error)

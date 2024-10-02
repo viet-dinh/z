@@ -6,6 +6,8 @@ use App\Models\Reply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ReplyResource;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class ReplyController extends Controller
 {
@@ -24,6 +26,23 @@ class ReplyController extends Controller
 
         $reply->user = Auth::user();
 
-        return response()->json($reply, 201);
+        return ReplyResource::make($reply);
+    }
+
+    public function destroy($id)
+    {
+        $reply = Reply::find($id);
+
+        if (!$reply) {
+            return response()->json([
+                'message' => 'Reply not found'
+            ], 404);
+        }
+
+        if (Auth::user()->cannot('delete', $reply)) {
+            throw new AuthorizationException('You do not have permission to delete this reply.');
+        }
+
+        return $reply->delete();
     }
 }

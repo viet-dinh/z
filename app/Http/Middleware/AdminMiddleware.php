@@ -15,8 +15,8 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || !auth()->user()->hasRole('admin')) {
-            return redirect('/'); // Redirect to home or an error page
+        if (!auth()->check() || !auth()->user()->isAdmin()) {
+            return redirect('/');
         }
 
         return $next($request);

@@ -6,7 +6,9 @@ use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CommentResource;
 use App\Http\Resources\UserResource;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class CommentController extends Controller
 {
@@ -27,16 +29,33 @@ class CommentController extends Controller
 
         $comment->user = new UserResource(Auth::user());
 
-        return response()->json($comment, 201);
+        return new CommentResource($comment);
     }
 
     public function index($storyId)
     {
-        $comments = Comment::with(['user:id,name', 'replies.user', 'reactions', 'replies.reactions'])
+        $comments = Comment::with(['user:id,name', 'replies.user:id,name', 'reactions', 'replies.reactions'])
             ->where('story_id', $storyId)
             ->orderBy('updated_at', 'desc')
             ->paginate(10);
 
-        return response()->json($comments, 200);
+        return CommentResource::collection($comments);
+    }
+
+    public function destroy($id)
+    {
+        $comment = Comment::find($id);
+
+        if (!$comment) {
+            return response()->json([
+                'message' => 'Story not found'
+            ], 404);
+        }
+
+        if (Auth::user()->cannot('delete', $comment)) {
+            throw new AuthorizationException('You do not have permission to delete this comment.');
+        }
+
+        return $comment->delete();
     }
 }

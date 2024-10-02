@@ -42,12 +42,16 @@ const CommentList = ({ storyId }) => {
             content: newComment,
         })
             .then((response) => {
-                setComments([response.data, ...comments]);
+                setComments([response.data.data, ...comments]);
                 setNewComment("");
             })
             .catch((error) =>
                 console.error("Error submitting comment:", error)
             );
+    };
+
+    const handleDeleteComment = (commentId) => {
+        setComments(comments.filter((comment) => comment.id !== commentId));
     };
 
     const lastCommentRef = useCallback(
@@ -84,14 +88,20 @@ const CommentList = ({ storyId }) => {
                         return (
                             <div ref={lastCommentRef} key={comment.id}>
                                 <QuestionProvider>
-                                    <Comment comment={comment} />
+                                    <Comment
+                                        comment={comment}
+                                        onDelete={handleDeleteComment}
+                                    />
                                 </QuestionProvider>
                             </div>
                         );
                     } else {
                         return (
                             <QuestionProvider key={comment.id}>
-                                <Comment comment={comment} />
+                                <Comment
+                                    comment={comment}
+                                    onDelete={handleDeleteComment}
+                                />
                             </QuestionProvider>
                         );
                     }
