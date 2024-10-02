@@ -3,3 +3,5 @@ deployment:
     - export DEVDEPLOYPATH=/home/lucrhuof/dev.truyentv.vn/
     - export DEPLOYPATH=/home/lucrhuof/public_html/
     - /bin/cp -R ./ $DEVDEPLOYPATH
+    - cd $DEVDEPLOYPATH
+    - php artisan migrate --force

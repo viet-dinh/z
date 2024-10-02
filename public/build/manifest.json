@@ -1,0 +1,57 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-187c9152.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/icons/reactions/add-reaction.svg": {
+    "file": "assets/add-reaction-ecbe65f9.svg",
+    "src": "resources/icons/reactions/add-reaction.svg"
+  },
+  "resources/icons/reactions/angry.svg": {
+    "file": "assets/angry-706e1179.svg",
+    "src": "resources/icons/reactions/angry.svg"
+  },
+  "resources/icons/reactions/laugh.svg": {
+    "file": "assets/laugh-75db9377.svg",
+    "src": "resources/icons/reactions/laugh.svg"
+  },
+  "resources/icons/reactions/like.svg": {
+    "file": "assets/like-b3bdea1f.svg",
+    "src": "resources/icons/reactions/like.svg"
+  },
+  "resources/icons/reactions/love.svg": {
+    "file": "assets/love-c73ec6bb.svg",
+    "src": "resources/icons/reactions/love.svg"
+  },
+  "resources/icons/reactions/sad.svg": {
+    "file": "assets/sad-cec3a1de.svg",
+    "src": "resources/icons/reactions/sad.svg"
+  },
+  "resources/icons/reactions/wow.svg": {
+    "file": "assets/wow-8bf09024.svg",
+    "src": "resources/icons/reactions/wow.svg"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-63532110.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/js/app.jsx": {
+    "assets": [
+      "assets/like-b3bdea1f.svg",
+      "assets/love-c73ec6bb.svg",
+      "assets/laugh-75db9377.svg",
+      "assets/wow-8bf09024.svg",
+      "assets/sad-cec3a1de.svg",
+      "assets/angry-706e1179.svg",
+      "assets/add-reaction-ecbe65f9.svg"
+    ],
+    "file": "assets/app-520f185e.js",
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/app.jsx"
+  }
+}
