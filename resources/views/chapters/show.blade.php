@@ -4,7 +4,8 @@
     <div class="container mx-auto py-8 px-4">
         @include('partials.breadcrumb', ['breadcrumbs' => $breadcrumbs])
 
-        <div class="container mx-auto py-8 px-4">
+        <div class="container mx-auto py-4 px-4">
+
             <div class="flex flex-col items-center">
                 <h1 class="text-3xl font-bold mb-6 text-center">{{ $chapter->title }}</h1>
                 <div id="chapter-content" class="max-w-full mb-8 whitespace-pre-line break-words">{!! $chapter->content !!}
@@ -75,6 +76,11 @@
                         +
                     </button>
                 </div>
+
+                <button id="reset-settings-btn"
+                    class="w-full py-2 px-4 rounded bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                    Đặt lại cài đặt
+                </button>
             </div>
         </div>
 
@@ -125,28 +131,44 @@
                 toggleDarkModeButton.text(isDarkMode ? 'Light Mode' : 'Dark Mode');
             });
 
-            let fontSize = savedFontSize ? parseInt(savedFontSize) : 16;
             $('#increase-font').on('click', function() {
+                const savedFontSize = localStorage.getItem('fontSize');
+                let fontSize = savedFontSize ? parseInt(savedFontSize) : 16;
                 fontSize += 1;
                 chapterContent.css('font-size', fontSize + 'px');
                 localStorage.setItem('fontSize', fontSize);
             });
             $('#decrease-font').on('click', function() {
+                const savedFontSize = localStorage.getItem('fontSize');
+                let fontSize = savedFontSize ? parseInt(savedFontSize) : 16;
                 fontSize = Math.max(10, fontSize - 1);
                 chapterContent.css('font-size', fontSize + 'px');
                 localStorage.setItem('fontSize', fontSize);
             });
 
-            let contentWidth = savedWidth ? parseInt(savedWidth) : 70;
             $('#increase-width').on('click', function() {
+                const savedWidth = localStorage.getItem('contentWidth');
+                let contentWidth = savedWidth ? parseInt(savedWidth) : 100;
+
                 contentWidth = Math.min(100, contentWidth + 3);
                 chapterContent.css('width', contentWidth + '%');
                 localStorage.setItem('contentWidth', contentWidth);
             });
             $('#decrease-width').on('click', function() {
+                const savedWidth = localStorage.getItem('contentWidth');
+                let contentWidth = savedWidth ? parseInt(savedWidth) : 100;
+
                 contentWidth = Math.max(50, contentWidth - 3);
                 chapterContent.css('width', contentWidth + '%');
                 localStorage.setItem('contentWidth', contentWidth);
+            });
+
+            $('#reset-settings-btn').on('click', () => {
+                localStorage.clear();
+                chapterContent.css('width', '100%');
+                chapterContent.css('font-size', '16px');
+                body.removeClass('dark');
+                toggleDarkModeButton.text('Dark Mode');
             });
         });
     </script>
