@@ -34,4 +34,9 @@ class Story extends Model
     {
         return asset('thumbnails/' . $this->thumbnail);
     }
+
+    public function storyViews()
+    {
+        return $this->hasMany(StoryView::class);
+    }
 }

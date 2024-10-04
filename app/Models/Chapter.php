@@ -15,4 +15,9 @@ class Chapter extends Model
     {
         return $this->belongsTo(Story::class);
     }
+
+    public function storyViews()
+    {
+        return $this->hasMany(StoryView::class);
+    }
 }

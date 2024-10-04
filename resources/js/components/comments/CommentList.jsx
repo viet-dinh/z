@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import Comment from "./Comment";
 import { QuestionProvider } from "./CommentProvider";
 import api from "../../api";
-import { Button, TextField } from "@mui/material";
 import IconTextField from "./IconTextField";
+import { useApp } from "../../AppProvider";
 
-const CommentList = ({ storyId }) => {
+const CommentList = () => {
+    const { storyId, chapterOrder } = useApp();
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [page, setPage] = useState(1);
@@ -40,6 +41,7 @@ const CommentList = ({ storyId }) => {
     const handleSubmitComment = () => {
         api.post(`/stories/${storyId}/comments`, {
             content: newComment,
+            chapter_order: chapterOrder ?? undefined
         })
             .then((response) => {
                 setComments([response.data.data, ...comments]);

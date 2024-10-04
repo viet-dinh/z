@@ -18,16 +18,10 @@
 
                 <div class="flex flex-wrap items-center gap-4 text-gray-600">
                     <div class="flex items-center text-yellow-500">
-                        <i class="fas fa-star"></i>
-                        <span class="ml-2">{{ $story->rating }} / 5</span>
+                        <span class="ml-2">{{ 0 }} / 5</span>
                     </div>
                     <div class="flex items-center">
-                        <i class="fas fa-eye"></i>
-                        <span class="ml-2">{{ $story->views ?? 0 }} lượt xem</span>
-                    </div>
-                    <div class="flex items-center text-red-500">
-                        <i class="fas fa-heart"></i>
-                        <span class="ml-2">{{ $story->likes ?? 0 }} lượt thích</span>
+                        <span class="ml-2">{{ number_format($viewCount) }} lượt xem</span>
                     </div>
                 </div>
 

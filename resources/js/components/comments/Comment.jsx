@@ -63,7 +63,8 @@ const Comment = ({ comment, onDelete }) => {
                 <span className="text-sm">
                     <strong className="font-semibold">
                         {comment.user.name}
-                    </strong>{" "}
+                    </strong>
+                    {comment.chapter_order && <span className="text-secondary"> - Chương {comment.chapter_order}</span>}
                     <span className="text-secondary"> - {timeAgo}</span>
                 </span>
 

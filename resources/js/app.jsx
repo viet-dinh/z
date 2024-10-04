@@ -8,16 +8,22 @@ import CssBaseline from "@mui/material/CssBaseline";
 import theme from "./theme";
 import CommentList from "./components/comments/CommentList.jsx";
 import { AuthProvider } from "./AuthProvider.jsx";
+import { AppProvider } from "./AppProvider.jsx";
 
 const socialDiv = document.getElementById('root');
-const storyId = socialDiv.getAttribute('story-id');  // Get the story ID from the div
-const authUserId = socialDiv.getAttribute('auth-user-id');  // Get the story ID from the div
-
+const storyId = socialDiv.getAttribute('story-id');
+const chapterOrder = socialDiv.getAttribute('chapter-order');
+const authUserId = socialDiv.getAttribute('auth-user-id');
 ReactDOM.createRoot(socialDiv).render(
     <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AuthProvider authUserId={authUserId}>  {/* Wrap with AuthProvider */}
-            <CommentList storyId={storyId} />
+        <AuthProvider authUserId={authUserId}>
+            <AppProvider data={{
+                storyId,
+                chapterOrder
+            }}>
+                <CommentList/>
+            </AppProvider>
         </AuthProvider>
     </ThemeProvider>
 );

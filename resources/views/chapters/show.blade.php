@@ -7,7 +7,10 @@
         <div class="container mx-auto py-4 px-4">
 
             <div class="flex flex-col items-center">
-                <h1 class="text-3xl font-bold mb-6 text-center">{{ $chapter->title }}</h1>
+                <h1 class="text-3xl font-bold text-center">{{ $chapter->title }}</h1>
+                <div class="text-gray-600 text-sm mb-4">
+                    {{ number_format($viewCount) }} lượt xem
+                </div>
                 <div id="chapter-content" class="max-w-full mb-8 whitespace-pre-line break-words">{!! $chapter->content !!}
                 </div>
             </div>
@@ -85,7 +88,7 @@
         </div>
 
 
-        <div id="root" story-id="{{ $chapter->story_id }}" auth-user-id="{{ $authId }}"></div>
+        <div id="root" story-id="{{ $chapter->story_id }}" chapter-order="{{ $chapter->order }}" auth-user-id="{{ $authId }}"></div>
         @vite(['resources/css/app.css'])
         @viteReactRefresh
         @vite('resources/js/app.jsx')
