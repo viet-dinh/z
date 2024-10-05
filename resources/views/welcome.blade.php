@@ -20,7 +20,8 @@
                             style="background-image: url('{{ asset('thumbnails/' . $story->thumbnail) }}');">
                             <div class="bg-black bg-opacity-50 h-full flex flex-col justify-end p-4 rounded-lg">
                                 <h3 class="text-lg font-bold text-white story-title">{{ $story->title }}</h3>
-                                <p class="text-sm text-gray-200 story-description">{{ $story->description }}</p>
+                                <p class="text-sm text-gray-200 story-description">{{ Str::limit($story->description, 64) }}
+                                </p>
                             </div>
                         </div>
                     </a>
@@ -60,4 +61,50 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link href="{{ asset('css/landing.css') }}" rel="stylesheet">
+@endpush
+
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            var swiper = new Swiper(".new-stories", {
+                slidesPerView: 1,
+                spaceBetween: 10,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 20
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 30
+                    },
+                    1280: {
+                        slidesPerView: 5,
+                        spaceBetween: 40
+                    },
+                    1440: {
+                        slidesPerView: 6,
+                        spaceBetween: 40
+                    },
+                    1920: {
+                        slidesPerView: 7,
+                        spaceBetween: 50
+                    },
+                },
+            });
+        })
+    </script>
 @endpush
