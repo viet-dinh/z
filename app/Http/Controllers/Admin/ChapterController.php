@@ -9,55 +9,52 @@ use Illuminate\Http\Request;
 
 class ChapterController extends Controller
 {
-    public function index()
+    public function index(Story $story)
     {
-        $chapters = Chapter::with('story')->get();
-        return view('admin.chapters.index', compact('chapters'));
+        $chapters = $story->chapters()->orderByDesc('id')->paginate(10);
+        return view('admin.stories.chapters.index', compact('chapters', 'story'));
     }
 
-    public function create()
+    public function create(Story $story)
     {
-        $stories = Story::all();
-        return view('admin.chapters.create', compact('stories'));
+        return view('admin.stories.chapters.create', compact('story'));
     }
 
-    public function store(Request $request)
+    public function store(Story $story, Request $request)
     {
-        $request->validate([
-            'story_id' => 'required|exists:stories,id',
+        $validatedData = $request->validate([
             'order' => 'required|numeric',
             'title' => 'required|string|max:255',
             'content' => 'required|string',
         ]);
 
-        Chapter::create($request->only('story_id', 'order', 'title', 'content'));
+        $story->chapters()->create($validatedData);
 
-        return redirect()->route('chapters.index')->with('success', 'Chapter created successfully.');
+        return redirect()->route('chapters.index', $story->id)->with('success', 'Chapter created successfully.');
     }
 
-    public function edit(Chapter $chapter)
+    public function edit(Story $story, Chapter $chapter)
     {
-        $stories = Story::all();
-        return view('admin.chapters.edit', compact('chapter', 'stories'));
+        return view('admin.stories.chapters.edit', compact('chapter', 'story'));
     }
 
-    public function update(Request $request, Chapter $chapter)
+    public function update(Request $request, Story $story, Chapter $chapter)
     {
-        $request->validate([
-            'story_id' => 'required|exists:stories,id',
+        $validatedData = $request->validate([
             'order' => 'required|numeric',
             'title' => 'required|string|max:255',
             'content' => 'required|string',
         ]);
 
-        $chapter->update($request->only('story_id', 'order', 'title', 'content'));
+        $chapter->update($validatedData);
 
-        return redirect()->route('chapters.index')->with('success', 'Chapter updated successfully.');
+        return redirect()->route('chapters.index', $story->id)->with('success', 'Chapter updated successfully.');
     }
 
-    public function destroy(Chapter $chapter)
+    public function destroy(Story $story, Chapter $chapter)
     {
         $chapter->delete();
-        return redirect()->route('chapters.index')->with('success', 'Chapter deleted successfully.');
+
+        return redirect()->route('chapters.index', $story->id)->with('success', 'Chapter deleted successfully.');
     }
 }

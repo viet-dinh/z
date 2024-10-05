@@ -47,8 +47,11 @@ Route::middleware(['auth'])->post('/chat/message-all', function (Request $reques
 Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::resource('categories', CategoryController::class);
+
     Route::resource('stories', StoryController::class);
-    Route::resource('chapters', ChapterController::class);
+    Route::prefix('stories/{story}')->group(function () {
+        Route::resource('chapters', ChapterController::class);
+    });
 });
 
 Route::get('/tim-kiem', action: [SearchController::class, 'index'])->name('search.show');

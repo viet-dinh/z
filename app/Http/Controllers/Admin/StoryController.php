@@ -13,11 +13,19 @@ class StoryController extends Controller
     public function __construct(private SlugService $slugService)
     {
     }
-    public function index()
+    public function index(Request $request)
     {
-        $stories = Story::with('categories')->get();
+        $query = Story::with('categories');
+
+        if ($search = $request->input('search')) {
+            $query->where('title', 'like', "%{$search}%");
+        }
+
+        $stories = $query->orderByDesc('id')->paginate(10);
+
         return view('admin.stories.index', compact('stories'));
     }
+
 
     public function create()
     {

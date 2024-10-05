@@ -26,7 +26,7 @@
                 </div>
 
                 <p><strong>Tác giả:</strong> {{ $story->author_name }}</p>
-                <p><strong>Người dịch truyện:</strong> {{ $story->translator ?? 'N/A' }}</p>
+                {{-- <p><strong>Người dịch truyện:</strong> {{ $story->translator ?? 'N/A' }}</p> --}}
                 <p><strong>Số chương:</strong> {{ $story->chapters->count() }}</p>
                 <p><strong>Trạng thái:</strong>
                     @if ($story->status == 'complete')

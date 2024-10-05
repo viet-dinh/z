@@ -57,6 +57,18 @@
                                 <hr class="border-gray-200 my-2">
                             </li>
 
+                            @if (Auth::user()->isAdmin())
+                                <li>
+                                    <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:bg-gray-100 transition-colors duration-150"
+                                        href="{{ route('admin.dashboard') }}">
+                                        Amin dashboard
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <hr class="border-gray-200 my-2">
+                                </li>
+                            @endif
                             <li>
                                 <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:bg-gray-100 transition-colors duration-150 cursor-pointer"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

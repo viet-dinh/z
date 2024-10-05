@@ -11,7 +11,6 @@ use Illuminate\Auth\Access\AuthorizationException;
 
 class ReplyController extends Controller
 {
-    // Add a reply to a comment
     public function store(Request $request, $commentId)
     {
         $request->validate([
