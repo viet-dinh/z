@@ -10,8 +10,8 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-        // Query the latest 10 stories by `updated_at`
         $stories = Story::with('categories')
+            ->published()
             ->orderBy('updated_at', 'desc')
             ->limit(12)
             ->get();

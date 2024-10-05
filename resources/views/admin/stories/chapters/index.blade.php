@@ -33,10 +33,8 @@
             <table class="min-w-full bg-white rounded-lg shadow-md">
                 <thead>
                     <tr class="bg-gray-100 text-left text-gray-600 text-sm uppercase font-semibold">
-                        <th class="py-3 px-4">Order</th>
-                        <th class="py-3 px-4">Story</th>
+                        <th class="py-3 px-4">Chapter</th>
                         <th class="py-3 px-4">Title</th>
-                        <th class="py-3 px-4">Content</th>
                         <th class="py-3 px-4">Created At</th>
                         <th class="py-3 px-4">Updated At</th>
                         <th class="py-3 px-4">Actions</th>
@@ -46,31 +44,32 @@
                     @foreach ($chapters as $chapter)
                         <tr class="border-t">
                             <td class="py-3 px-4">{{ $chapter->order }}</td>
-                            <td class="py-3 px-4">{{ $chapter->story->title }}</td>
                             <td class="py-3 px-4">{{ $chapter->title }}</td>
-                            <td class="py-3 px-4">{{ Str::limit($chapter->content, 50) }}</td>
                             <td class="py-3 px-4">{{ $chapter->created_at->format('Y-m-d H:i') }}</td>
                             <td class="py-3 px-4">{{ $chapter->updated_at->format('Y-m-d H:i') }}</td>
-                            <td class="py-3 px-4 flex space-x-2">
+                            <td class="py-3 px-4 flex space-x-4 text-center">
                                 <a target="_blank"
                                     href="{{ route('chapter.show', ['slug' => $story->slug, 'order' => $chapter->order]) }}"
-                                    class="inline-block bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600">
-                                    Preview
+                                    class="text-blue-600 hover:text-blue-800 cursor-pointer p-1 transition" title="Preview">
+                                    <i class="fas fa-eye text-xl"></i>
                                 </a>
                                 <a href="{{ route('chapters.edit', [$story->id, $chapter->id]) }}"
-                                    class="inline-block bg-yellow-500 text-white py-1 px-3 rounded-md hover:bg-yellow-600">
-                                    Edit
+                                    class="text-yellow-600 hover:text-yellow-800 cursor-pointer p-1 transition"
+                                    title="Edit">
+                                    <i class="fas fa-edit text-xl"></i>
                                 </a>
                                 <form action="{{ route('chapters.destroy', [$story->id, $chapter->id]) }}" method="POST"
                                     onsubmit="return confirm('Are you sure?')" class="inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                        class="bg-red-600 text-white py-1 px-3 rounded-md hover:bg-red-700">
-                                        Delete
+                                        class="text-red-600 hover:text-red-800 cursor-pointer p-1 transition"
+                                        title="Delete">
+                                        <i class="fas fa-trash-alt text-xl"></i>
                                     </button>
                                 </form>
                             </td>
+
                         </tr>
                     @endforeach
                 </tbody>

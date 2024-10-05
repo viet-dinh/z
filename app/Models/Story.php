@@ -3,17 +3,21 @@
 namespace App\Models;
 
 use App\Traits\CreatedUpdatedBy;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 class Story extends Model
 {
     use CreatedUpdatedBy, SoftDeletes;
 
-    protected $fillable = ['title', 'slug', 'thumbnail', 'author_name', 'status', 'description'];
+    protected $fillable = ['title', 'slug', 'thumbnail', 'author_name', 'status', 'description', 'published_at'];
     const STATUS_COMPLETE = 'complete';
     const STATUS_INCOMPLETE = 'incomplete';
+
+    protected $dates = [
+        'published_at',
+    ];
 
     public function chapters()
     {
@@ -38,5 +42,10 @@ class Story extends Model
     public function storyViews()
     {
         return $this->hasMany(StoryView::class);
+    }
+
+    public function scopePublished(Builder $query): Builder
+    {
+        return $query->whereNotNull('published_at');
     }
 }

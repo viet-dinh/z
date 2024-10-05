@@ -49,6 +49,10 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::resource('categories', CategoryController::class);
 
     Route::resource('stories', StoryController::class);
+    Route::post('stories/{story}/restore', [StoryController::class, 'restore'])->name('stories.restore');
+    Route::post('stories/{story}/publish', [StoryController::class, 'publish'])->name('stories.publish');
+    Route::post('stories/{story}/unpublish', [StoryController::class, 'unpublish'])->name('stories.unpublish');
+
     Route::prefix('stories/{story}')->group(function () {
         Route::resource('chapters', ChapterController::class);
     });

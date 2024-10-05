@@ -17,14 +17,14 @@ class SlugController extends Controller
 
     public function showStory(string $slug)
     {
-        $story = Story::with('comments.replies.reactions', 'comments.reactions')->where('slug', $slug)->first();
+        $story = Story::published()->with('comments.replies.reactions', 'comments.reactions')->where('slug', $slug)->first();
 
         if (!$story) {
             return Redirect::to('/');
         }
 
         $this->storyViewService->incrementViewCount($story->id);
-        $viewCount =  $this->storyViewService->totalCount($story->id);
+        $viewCount = $this->storyViewService->totalCount($story->id);
 
         $breadcrumbs = [
             ['title' => 'Trang chủ', 'url' => route('welcome')],
@@ -38,18 +38,20 @@ class SlugController extends Controller
 
     public function showChapter(string $slug, int $chapterOrder)
     {
-        $story = Story::where('slug', $slug)->first();
-        $totalChapter = $story->chapters()->count();
+        $story = Story::published()->where('slug', $slug)->first();
 
         if (!$story) {
             return Redirect::to('/');
         }
+
         $chapter = Chapter::where('story_id', $story->id)
             ->where('order', $chapterOrder)->first();
 
         if (!$chapter) {
             return Redirect::to('/');
         }
+
+        $totalChapter = $story->chapters()->count();
 
         $viewCount = $this->storyViewService->incrementViewCount($story->id, $chapter->id)->count;
 

@@ -8,7 +8,7 @@
             @method('PUT')
 
             <div class="space-y-2">
-                <label for="order" class="block text-sm font-medium text-gray-700">Order</label>
+                <label for="order" class="block text-sm font-medium text-gray-700">Chapter</label>
                 <input type="number" name="order"
                     class="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
                     value="{{ $chapter->order }}" required>

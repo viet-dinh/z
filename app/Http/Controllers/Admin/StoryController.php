@@ -13,9 +13,10 @@ class StoryController extends Controller
     public function __construct(private SlugService $slugService)
     {
     }
+
     public function index(Request $request)
     {
-        $query = Story::with('categories');
+        $query = Story::withTrashed()->with('categories');
 
         if ($search = $request->input('search')) {
             $query->where('title', 'like', "%{$search}%");
@@ -25,7 +26,6 @@ class StoryController extends Controller
 
         return view('admin.stories.index', compact('stories'));
     }
-
 
     public function create()
     {
@@ -97,6 +97,38 @@ class StoryController extends Controller
     public function destroy(Story $story)
     {
         $story->delete();
-        return redirect()->route('stories.index')->with('success', 'Story deleted successfully.');
+
+        return $this->redirectTo('Story is deleted successfully.');
+    }
+
+    public function restore($id)
+    {
+        $story = Story::withTrashed()->findOrFail($id);
+        $story->restore();
+
+        return $this->redirectTo('Story is restored successfully.');
+    }
+
+    public function unpublish(Story $story)
+    {
+        $story->update(['published_at' => null]);
+        return $this->redirectTo('Story is un-published successfully.');
+    }
+
+    public function publish($id)
+    {
+        $story = Story::withTrashed()->findOrFail($id);
+        $story->update(['published_at' => now()]);
+
+        return $this->redirectTo('Story is published successfully.');
+    }
+
+    private function redirectTo(string $message)
+    {
+        $page = request('page');
+        $search = request('search');
+
+        return redirect()->route('stories.index', ['page' => $page, 'search' => $search])
+            ->with('success', $message);
     }
 }

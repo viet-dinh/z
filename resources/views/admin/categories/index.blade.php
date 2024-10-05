@@ -2,17 +2,17 @@
 
 @section('content')
     <div class="container mx-auto p-6">
-        <h1 class="text-2xl font-bold mb-4">Categories</h1>
-        <div>
-            <a href="{{ route('categories.create') }}"
-                class="inline-block bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 mb-4">Add Category</a>
+
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold">Categories</h1>
 
             @if (session('success'))
-                <span id="success-message"
-                    class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-4 opacity-100 transition-opacity duration-600">
+                <span id="success-message" class="bg-green-100 border border-green-400 text-green-700 rounded relative">
                     {{ session('success') }}
                 </span>
             @endif
+            <a href="{{ route('categories.create') }}"
+                class="inline-block bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 mb-4">Add Category</a>
         </div>
 
         <div class="overflow-x-auto mt-3">
@@ -33,15 +33,21 @@
                             <td class="py-3 px-4">{{ $category->name }}</td>
                             <td class="py-3 px-4">{{ $category->created_at->format('Y-m-d H:i') }}</td>
                             <td class="py-3 px-4">{{ $category->updated_at->format('Y-m-d H:i') }}</td>
-                            <td class="py-3 px-4 flex space-x-2">
+                            <td class="py-3 px-4 flex space-x-4 text-center">
                                 <a href="{{ route('categories.edit', $category) }}"
-                                    class="inline-block bg-yellow-500 text-white py-1 px-3 rounded-md hover:bg-yellow-600">Edit</a>
+                                    class="text-yellow-600 hover:text-yellow-800 cursor-pointer p-1 transition"
+                                    title="Edit">
+                                    <i class="fas fa-edit text-xl"></i>
+                                </a>
                                 <form action="{{ route('categories.destroy', $category) }}" method="POST"
                                     onsubmit="return confirm('Are you sure?')" class="inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                        class="bg-red-600 text-white py-1 px-3 rounded-md hover:bg-red-700">Delete</button>
+                                        class="text-red-600 hover:text-red-800 cursor-pointer p-1 transition"
+                                        title="Delete">
+                                        <i class="fas fa-trash-alt text-xl"></i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>
