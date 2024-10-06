@@ -100,7 +100,7 @@
     "file": "assets/stylis-79144faa.js"
   },
   "resources/css/app.css": {
-    "file": "assets/app-8cb3c5c0.css",
+    "file": "assets/app-c7930523.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -151,7 +151,7 @@
       "assets/angry-706e1179.svg",
       "assets/add-reaction-ecbe65f9.svg"
     ],
-    "file": "assets/app-5f0a6ff8.js",
+    "file": "assets/app-a1d56475.js",
     "imports": [
       "_react-e6ac2c17.js",
       "resources/js/app.js",

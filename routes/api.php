@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\ReactionController;
 use App\Http\Controllers\Api\ReplyController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SearchController;
 
 /*
@@ -34,15 +35,14 @@ Route::middleware(['auth:sanctum'])->post('/chat/message-all', function (Request
 
 
 Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
-    // Comments
     Route::post('stories/{storyId}/comments', [CommentController::class, 'store'])->name('stories.comments.store');
-    Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
-    Route::delete('/replies/{id}', [ReplyController::class, 'destroy'])->name('replies.destroy');
+    Route::post('stories/{story}/ratings', [RatingController::class, 'rate'])->name('stories.ratings.rate');
 
-    // Replies
+    Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
+    Route::delete('/replies/{id}', [ReplyController::class, 'destroy'])->name('replies.destroy');
     Route::post('comments/{commentId}/replies', [ReplyController::class, 'store'])->name('comments.replies.store');
 
-    // Reactions
     Route::post('reactions/{reactableType}/{reactableId}', [ReactionController::class, 'store'])->name('reactions.store');
 });
 

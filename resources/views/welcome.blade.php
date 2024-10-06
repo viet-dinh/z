@@ -13,19 +13,7 @@
     <div class="swiper new-stories my-10 mx-auto w-11/12 pb-12">
         <div class="swiper-wrapper">
             @foreach ($stories as $index => $story)
-                <div class="swiper-slide bg-center bg-cover rounded-lg overflow-hidden">
-                    <a href="{{ route('story.show', $story->slug) }}"
-                        class="story-link block transform transition-transform hover:scale-105">
-                        <div class="bg-cover bg-center h-72 relative rounded-lg"
-                            style="background-image: url('{{ asset('thumbnails/' . $story->thumbnail) }}');">
-                            <div class="bg-black bg-opacity-50 h-full flex flex-col justify-end p-4 rounded-lg">
-                                <h3 class="text-lg font-bold text-white story-title">{{ $story->title }}</h3>
-                                <p class="text-sm text-gray-200 story-description">{{ Str::limit($story->description, 64) }}
-                                </p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                @include('components.story', ['story' => $story])
             @endforeach
         </div>
         <div class="swiper-pagination"></div>

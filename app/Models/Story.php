@@ -48,4 +48,9 @@ class Story extends Model
     {
         return $query->whereNotNull('published_at');
     }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
 }

@@ -23,17 +23,29 @@ class SlugController extends Controller
             return Redirect::to('/');
         }
 
+        $authId = Auth::id();
+
         $this->storyViewService->incrementViewCount($story->id);
         $viewCount = $this->storyViewService->totalCount($story->id);
+        $averageStar = number_format($story->ratings()->avg('star'), 1);
+        $starCount = $story->ratings()->count();
+
+        $star = null;
+        if ($authId)
+            $star = $story->ratings()->where('user_id', $authId)->first(['star'])?->star;
 
         $breadcrumbs = [
             ['title' => 'Trang chủ', 'url' => route('welcome')],
             ['title' => $story->title, 'url' => ''],
         ];
 
-        $authId = Auth::id();
+        $recommendStories = Story::with('categories')
+            ->published()
+            ->orderBy('updated_at', 'desc')
+            ->limit(5)
+            ->get();
 
-        return view('stories.show', compact('story', 'breadcrumbs', 'authId', 'viewCount'));
+        return view('stories.show', compact('story', 'breadcrumbs', 'authId', 'viewCount', 'star', 'averageStar', 'starCount', 'recommendStories'));
     }
 
     public function showChapter(string $slug, int $chapterOrder)

@@ -28,7 +28,8 @@ const CommentList = () => {
                     ...newComments,
                 ]);
                 setHasMore(
-                    response.data.current_page < response.data.last_page
+                    response.data.meta.current_page <
+                        response.data.meta.last_page
                 );
                 setLoading(false);
             })
@@ -41,7 +42,7 @@ const CommentList = () => {
     const handleSubmitComment = () => {
         api.post(`/stories/${storyId}/comments`, {
             content: newComment,
-            chapter_order: chapterOrder ?? undefined
+            chapter_order: chapterOrder ?? undefined,
         })
             .then((response) => {
                 setComments([response.data.data, ...comments]);
