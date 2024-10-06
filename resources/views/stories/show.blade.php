@@ -165,9 +165,9 @@
                         }, 200);
                     },
                     error: function(xhr, status, error) {
-                        if (error == 'Unauthorized') {
-                            const currentUrl =
-                                window.location.pathname + window.location.search;
+                        if (xhr.status === 401) {
+                            const currentUrl = window.location.pathname + window.location
+                            .search;
                             window.location.href =
                                 `/login?redirect=${encodeURIComponent(currentUrl)}`;
                             return;
