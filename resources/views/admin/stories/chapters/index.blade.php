@@ -8,25 +8,24 @@
                 Back to Stories
             </a>
         </div>
-        <h1 class="text-2xl font-bold mb-6">
 
-            Chapters of
-            <span class="text-3xl font-extrabold text-blue-600 bg-blue-100 px-2 py-1 rounded-md">
-                {{ $story->title }}
-            </span>
-        </h1>
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold">
 
-        <div class="mb-4">
-            <a href="{{ route('chapters.create', $story->id) }}"
-                class="inline-block bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700">
-                Add Chapter
-            </a>
-
+                Chapters of
+                <span class="text-3xl font-extrabold text-blue-600 bg-blue-100 px-2 py-1 rounded-md">
+                    {{ $story->title }}
+                </span>
+            </h1>
             @if (session('success'))
                 <span id="success-message" class="bg-green-100 text-green-700 p-4 rounded-md mt-4">
                     {{ session('success') }}
                 </span>
             @endif
+            <a href="{{ route('chapters.create', $story->id) }}"
+                class="inline-block bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700">
+                Add Chapter
+            </a>
         </div>
 
         <div class="mt-6 overflow-x-auto">

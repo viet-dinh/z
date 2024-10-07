@@ -55,5 +55,9 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="mt-4">
+            {{ $categories->links('vendor.pagination.tailwind') }} <!-- Tailwind pagination view -->
+        </div>
     </div>
 @endsection
