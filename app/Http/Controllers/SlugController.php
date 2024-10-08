@@ -19,6 +19,8 @@ class SlugController extends Controller
     {
         $story = Story::published()->with('comments.replies.reactions', 'comments.reactions')->where('slug', $slug)->first();
 
+        $chapters = $story->chapters()->with('storyView')->orderByDesc('order')->paginate(10);
+
         if (!$story) {
             return Redirect::to('/');
         }
@@ -45,7 +47,7 @@ class SlugController extends Controller
             ->limit(5)
             ->get();
 
-        return view('stories.show', compact('story', 'breadcrumbs', 'authId', 'viewCount', 'star', 'averageStar', 'starCount', 'recommendStories'));
+        return view('stories.show', compact('story', 'chapters', 'breadcrumbs', 'authId', 'viewCount', 'star', 'averageStar', 'starCount', 'recommendStories'));
     }
 
     public function showChapter(string $slug, int $chapterOrder)

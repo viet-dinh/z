@@ -69,17 +69,30 @@
         <!-- Chapters List -->
         <div class="mt-8">
             <h2 class="text-2xl font-semibold mb-4">Chương:</h2>
-            <div class="space-y-2">
-                @foreach ($story->chapters as $chapter)
+
+            <!-- Grid with correct column sizes -->
+            <div class="grid md:grid-cols-2 sm:grid-cols-1 gap-4">
+                @foreach ($chapters as $chapter)
                     <div
-                        class="flex justify-between items-center py-3 px-4 bg-gray-50 rounded-lg shadow hover:bg-gray-100 transition duration-150">
-                        <a href="{{ route('chapter.show', [$story->slug, $chapter->order]) }}"
-                            class="font-semibold text-blue-600 hover:underline">
-                            {{ "Chương $chapter->order: $chapter->title " }}
-                        </a>
-                        <span class="text-sm text-gray-500">{{ $chapter->created_at->format('d-m-Y') }}</span>
+                        class="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-gray-100 hover:bg-gray-200 p-4 rounded-md transition duration-200">
+                        <div>
+                            <a href="{{ route('chapter.show', [$story->slug, $chapter->order]) }}"
+                                class="text-blue-600 hover:underline">
+                                {{ "Chương $chapter->order: $chapter->title " }}
+                            </a>
+                            <p class="text-sm text-gray-500">{{ $chapter->updated_at->format('d-m-Y') }}</p>
+                        </div>
+
+                        <span class="text-sm text-gray-500">
+                            Lượt xem: {{ $chapter->storyView->count }}
+                        </span>
                     </div>
                 @endforeach
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-6">
+                {{ $chapters->links('vendor.pagination.tailwind') }}
             </div>
         </div>
 
@@ -167,7 +180,7 @@
                     error: function(xhr, status, error) {
                         if (xhr.status === 401) {
                             const currentUrl = window.location.pathname + window.location
-                            .search;
+                                .search;
                             window.location.href =
                                 `/login?redirect=${encodeURIComponent(currentUrl)}`;
                             return;
