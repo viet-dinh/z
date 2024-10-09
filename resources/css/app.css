@@ -55,11 +55,17 @@ body {
 
 #chapter-content {
     background-color: #f9f9f9;
-    padding: 20px;
+    padding: 8px;
     border-radius: 8px;
     color: #333;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s, color 0.3s;
+}
+
+@media (min-width: 768px) {
+    #chapter-content {
+        padding: 16px;
+    }
 }
 
 body.dark #chapter-content {
@@ -69,6 +75,8 @@ body.dark #chapter-content {
 }
 
 #toolbar {
+    bottom: 7.5rem;
+    right: 6px;
     background-color: #fff;
     color: #333;
     transition: background-color 0.3s, color 0.3s;
@@ -85,10 +93,10 @@ body.dark #toolbar span {
 
 #settings-button {
     position: fixed;
-    bottom: 1.5rem;
+    bottom: 4.5rem;
     right: 6px;
     color: white;
-    padding: 0.75rem;
+    padding: 0.5rem;
     border-radius: 9999px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s;
@@ -98,16 +106,53 @@ body.dark #toolbar span {
     transform: scale(1.1);
 }
 
+#goTopBtn {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 6px;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 9999px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+}
+
 @media (min-width: 768px) {
     #settings-button {
-        bottom: 2rem;
+        bottom: 5.5rem;
         right: 2rem;
+        padding: 0.75rem;
+    }
+
+    #toolbar {
+        bottom: 9rem;
+        right: 2rem;
+    }
+
+    #goTopBtn {
+        right: 2rem;
+        bottom: 2rem;
+        padding: 0.75rem;
     }
 }
 
 @media (min-width: 1024px) {
     #settings-button {
+        bottom: 6rem;
+        right: 2.5rem;
+    }
+
+    #toolbar {
+        bottom: 9.5rem;
+        right: 2.5rem;
+    }
+
+    #goTopBtn {
         bottom: 2.5rem;
         right: 2.5rem;
     }
+}
+
+#goTopBtn:hover {
+    transform: scale(1.1); /* Scale effect on hover */
 }

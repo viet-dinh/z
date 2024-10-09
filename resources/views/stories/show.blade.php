@@ -7,7 +7,7 @@
 @endpush
 
 @section('content')
-    <div class="container mx-auto py-8 px-4">
+    <div class="container mx-auto py-2 px-1 md:px-4 md:py-8">
         @include('partials.breadcrumb', ['breadcrumbs' => $breadcrumbs])
 
         <div class="flex flex-col lg:flex-row gap-6">

@@ -1,10 +1,10 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="container mx-auto py-8 px-4">
+    <div class="container mx-auto py-2 px-1 md:px-4 md:py-8">
         @include('partials.breadcrumb', ['breadcrumbs' => $breadcrumbs])
 
-        <div class="container mx-auto py-4 px-4">
+        <div class="container mx-auto py-4 px-1 md:px-4">
 
             <div class="flex flex-col items-center">
                 <h1 class="text-3xl font-bold text-center">{{ $chapter->title }}</h1>
@@ -49,8 +49,8 @@
         </button>
 
         <div id="toolbar"
-            class="fixed bottom-24 right-6 p-4 shadow-lg rounded-lg space-y-4 z-50 hidden bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-            <div class="p-6 rounded-lg shadow-lg w-80 space-y-6">
+            class="fixed p-4 shadow-lg rounded-lg space-y-4 z-50 hidden bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200">
+            <div class="p-6 w-80 space-y-6">
                 <button id="toggle-dark-mode"
                     class="w-full py-2 px-4 rounded bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
                     Light Mode
@@ -88,7 +88,8 @@
         </div>
 
 
-        <div id="root" story-id="{{ $chapter->story_id }}" chapter-order="{{ $chapter->order }}" auth-user-id="{{ $authId }}"></div>
+        <div id="root" story-id="{{ $chapter->story_id }}" chapter-order="{{ $chapter->order }}"
+            auth-user-id="{{ $authId }}"></div>
         @vite(['resources/css/app.css'])
         @viteReactRefresh
         @vite('resources/js/app.jsx')
@@ -123,8 +124,22 @@
                 chapterContent.css('width', savedWidth + '%');
             }
 
-            settingsButton.on('click', function() {
+            settingsButton.on('click', function(e) {
+                event.stopPropagation();
                 toolbar.toggleClass('hidden');
+            });
+
+            $(document).click(function(event) {
+                const toolbar = $('#toolbar');
+
+                const isToolbarVisible = !toolbar.hasClass('hidden');
+                const isToolbarClicked = toolbar.is(event.target) || toolbar.has(event.target).length > 0;
+
+                if (isToolbarVisible && !isToolbarClicked) {
+                    console.log(123, isToolbarVisible);
+
+                    toolbar.addClass('hidden'); // Close the toolbar
+                }
             });
 
             toggleDarkModeButton.on('click', function() {

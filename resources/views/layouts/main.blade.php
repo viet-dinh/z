@@ -95,6 +95,12 @@
         @yield('content')
     </main>
 
+    <button id="goTopBtn" class="fixed hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="black" class="h-6 w-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20V4m0 0l-4 4m4-4l4 4" />
+        </svg>
+    </button>
+
     <!-- Footer -->
     <footer class="bg-footer-bg py-4">
         <div class="container mx-auto text-center text-sm text-footer-text">
@@ -192,6 +198,21 @@
                     searchResults.append('<p class="p-2 text-gray-500">Không tìm thấy truyện</p>');
                 }
             }
+
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 300) {
+                    $('#goTopBtn').fadeIn();
+                } else {
+                    $('#goTopBtn').fadeOut();
+                }
+            });
+
+            $('#goTopBtn').click(function() {
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 600);
+                return false;
+            });
         });
     </script>
 
