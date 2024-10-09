@@ -83,9 +83,11 @@
                             <p class="text-sm text-gray-500">{{ $chapter->updated_at->format('d-m-Y') }}</p>
                         </div>
 
-                        <span class="text-sm text-gray-500">
-                            Lượt xem: {{ $chapter->storyView->count }}
-                        </span>
+                        @if ($chapter->storyView)
+                            <span class="text-sm text-gray-500">
+                                Lượt xem: {{ $chapter->storyView->count }}
+                            </span>
+                        @endif
                     </div>
                 @endforeach
             </div>
