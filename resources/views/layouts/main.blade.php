@@ -4,7 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <title>@yield('title', 'Truyện TV | Đọc Truyện Online')</title>
+
+    <meta name="description" content="@yield('description', 'Thư viện truyện online lớn nhất, đọc miễn phí các câu chuyện hay nhất, từ tình cảm đến khoa học viễn tưởng.')">
+    
+    <meta property="og:title" content="@yield('title', 'Truyện TV | Đọc Truyện Online')">
+    <meta property="og:description" content="@yield('description', 'Khám phá những câu chuyện hấp dẫn tại Truyện TV, nền tảng đọc truyện trực tuyến tốt nhất.')">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="@yield('og_image', asset('images/hero.png'))">
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     @vite(['resources/css/app.css'])
     @stack('styles')
 </head>

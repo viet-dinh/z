@@ -6,6 +6,10 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endpush
 
+@section('title', $story->title)
+@section('description', Str::limit($story->description, 155))
+@section('og_image', $story->getThumbnailUrl())
+
 @section('content')
     <div class="container mx-auto py-2 px-1 md:px-4 md:py-8">
         @include('partials.breadcrumb', ['breadcrumbs' => $breadcrumbs])
@@ -14,7 +18,7 @@
             <!-- Left side: Thumbnail -->
             <div class="mb-4 lg:mb-0">
                 <div class="w-[240px] aspect-[2/3] overflow-hidden rounded-lg shadow-lg">
-                    <img src="{{ $story->getThumbnailUrl() }}" alt="Story Thumbnail" class="object-cover w-full h-full">
+                    <img src="{{ $story->getThumbnailUrl() }}" alt="{{ $story->title }}" loading="lazy" class="object-cover w-full h-full">
                 </div>
             </div>
 

@@ -37,7 +37,7 @@ class SlugController extends Controller
             $star = $story->ratings()->where('user_id', $authId)->first(['star'])?->star;
 
         $breadcrumbs = [
-            ['title' => 'Trang chủ', 'url' => route('welcome')],
+            ['title' => 'Trang chủ', 'url' => route('home')],
             ['title' => $story->title, 'url' => ''],
         ];
 
@@ -70,7 +70,7 @@ class SlugController extends Controller
         $viewCount = $this->storyViewService->incrementViewCount($story->id, $chapter->id)->count;
 
         $breadcrumbs = [
-            ['title' => 'Trang chủ', 'url' => route('welcome')],
+            ['title' => 'Trang chủ', 'url' => route('home')],
             ['title' => $story->title, 'url' => route('story.show', $story->slug)],
             ['title' => $chapter->title, 'url' => ''], // Current page has no URL
         ];

@@ -5,9 +5,7 @@
     <div class="hero flex flex-col justify-center items-center h-1/4 w-full bg-cover bg-center text-white text-center"
         style="background-image: url('{{ asset('images/hero.png') }}'); font-family: 'Island Moments', cursive;">
         <h1 class="text-5xl md:text-6xl lg:text-7xl font-semibold">Chào mừng đến với thế giới truyệnTV</h1>
-        {{-- <p class="text-xl text-white mt-4">Where Every Story Finds Its Voice</p> --}}
     </div>
-
 
     <!-- New Stories Slider -->
     <div class="swiper new-stories my-10 mx-auto w-11/12 pb-12">
@@ -49,10 +47,25 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link href="{{ asset('css/landing.css') }}" rel="stylesheet">
+    <link rel="canonical" href="https://truyentv.vn/" />
 @endpush
 
 
 @push('scripts')
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Truyện TV",
+        "description": "Nền tảng đọc truyện trực tuyến lớn nhất, nơi bạn có thể khám phá hàng ngàn câu chuyện độc đáo.",
+        "url": "https://truyentv.vn/",
+        "image": "{{ asset('images/hero.png') }}",
+        "author": {
+            "@type": "Organization",
+            "name": "Truyện TV"
+        }
+    }
+    </script>
     <script>
         $(document).ready(function() {
             var swiper = new Swiper(".new-stories", {

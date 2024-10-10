@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title', $chapter->title)
+@section('description', Str::limit($chapter->content, 155))
+@section('og_image', $story->getThumbnailUrl())
+
 @section('content')
     <div class="container mx-auto py-2 px-1 md:px-4 md:py-8">
         @include('partials.breadcrumb', ['breadcrumbs' => $breadcrumbs])

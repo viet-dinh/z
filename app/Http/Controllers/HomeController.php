@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Story;
-use Illuminate\Http\Request;
 
-class WelcomeController extends Controller
+class HomeController extends Controller
 {
     public function index()
     {
@@ -16,6 +15,6 @@ class WelcomeController extends Controller
             ->limit(12)
             ->get();
         $categories = Category::all();
-        return view('welcome', compact('stories'), compact('categories'));
+        return view('home', compact('stories'), compact('categories'));
     }
 }

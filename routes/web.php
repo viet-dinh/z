@@ -8,7 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SlugController;
-use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 require __DIR__ . '/auth.php';
 require __DIR__ . '/passport.php';
 
-Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
